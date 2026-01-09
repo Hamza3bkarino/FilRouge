@@ -1,15 +1,24 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+
+const inter = Inter({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"], // include bold weights
+  variable: "--font-inter",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+import { Lexend } from 'next/font/google';
+import NavbarAdmin from "./components/admin/Navbar";
+
+const lexend = Lexend({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '700', '900'],
+  variable: '--font-lexend',
 });
+
 
 export const metadata = {
   title: "Create Next App",
@@ -19,9 +28,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${lexend.variable} font-display`}>
+        {/* <Navbar /> */}
+        <NavbarAdmin/>
         {children}
       </body>
     </html>
