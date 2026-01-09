@@ -12,6 +12,7 @@ const inter = Inter({
 
 import { Lexend } from 'next/font/google';
 import NavbarAdmin from "./components/admin/Navbar";
+import { Toaster } from "react-hot-toast";
 
 const lexend = Lexend({
   subsets: ['latin'],
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
         {/* <Navbar /> */}
         <NavbarAdmin/>
         {children}
+        <Toaster position="top-right" reverseOrder={false} />
       </body>
     </html>
   );
