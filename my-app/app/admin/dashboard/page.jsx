@@ -77,7 +77,7 @@ export default function Dashboard() {
                 className="bg-green-950/80  border border-white/5 p-6 rounded-xl relative overflow-hidden group hover:border-white/10 transition-all"
               >
                 {/* Background Icon */}
-                <div className={`absolute right-0 top-0 p-4 ${stat.title=== 'Active Programs' ? 'right-12':''}  transition-opacity text-6xl text-green-600/50`}>
+                <div className={`absolute right-0 top-0 p-4  transition-opacity text-6xl text-green-600/50`}>
                   {stat.icon}
                 </div>
 
