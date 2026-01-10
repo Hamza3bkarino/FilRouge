@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react';
 import { FiSearch, FiFilter, FiDownload, FiStar, FiEdit, FiTrash2, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import DeleteProgramPopUp from './DeletePopUp';
 import axios from 'axios';
+import ExportButton from './Export';
 
-export default function ProgramsTable({data}) {
-  const [activeTab, setActiveTab] = useState('programs');
+export default function ProgramsTable({data,activeTab,setActiveTab}) {
+  // const [activeTab, setActiveTab] = useState('programs');
   const [loading, setLoading] = useState(false);
   const [currentPage , setCurrentPage] = useState(1);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedProgram, setSelectedProgram] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const [programsData, setProgramsData] = useState(data);
   const apiUrl = process.env.NEXT_PUBLIC_API;
 
@@ -19,6 +21,10 @@ export default function ProgramsTable({data}) {
     }
   }, [data]); 
 
+
+  const filteredPrograms = programsData.filter((p) =>
+      p.name.toLowerCase().includes(searchQuery.toLowerCase())   // filter of search
+  );
  
   const totalResults = programsData.length;   
   const rowsPerPage = 6; 
@@ -26,11 +32,10 @@ export default function ProgramsTable({data}) {
   // this for slice data 6 per page
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
-  const currentPrograms = programsData.slice(startIndex, endIndex); 
+  const currentPrograms = filteredPrograms.slice(startIndex, endIndex); // if filtred by search get value of search , else get all data of program
 
   const totalPages = Math.ceil(totalResults / rowsPerPage);
   let showingText = "";
-
   if (totalPages < 1) {
     showingText = "No results";
   } else if (totalPages === 1) {
@@ -39,7 +44,7 @@ export default function ProgramsTable({data}) {
     showingText = `1-${totalPages} of ${totalResults} results`;
   }
 
-  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);// create array [1,2]
   
 
 
@@ -54,16 +59,15 @@ export default function ProgramsTable({data}) {
       status: item.status === "spero" ? "active" : "draft",
     }));
 
-  const tabs = [
-    { id: 'programs', label: 'Programs' },
-    { id: 'products', label: 'Products' },
-    { id: 'models', label: 'AI Models' },
-  ];
+  // const tabs = [
+  //   { id: 'programs', label: 'Programs' },
+  //   { id: 'products', label: 'Products' },
+  //   { id: 'models', label: 'AI Models' },
+  // ];
 
   const statusConfig = {
     active: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', border: 'border-emerald-500/20', dot: 'bg-emerald-500' },
     draft: { bg: 'bg-white/5', text: 'text-gray-400', border: 'border-white/10', dot: 'bg-gray-500' },
-    // review: { bg: 'bg-yellow-500/10', text: 'text-yellow-400', border: 'border-yellow-500/20', dot: 'bg-yellow-500' },
   };
 
   const levelColors = {
@@ -91,24 +95,20 @@ export default function ProgramsTable({data}) {
   }
 
   return (
+    <>
+    
     <div className="max-w-7xl mx-auto bg-gray-900/50 border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
       {/* Tabs */}
       <div className="flex border-b border-white/5">
-        {tabs.map((tab) => (
+        
           <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-6 py-4 text-sm font-bold uppercase transition-colors ${
-              tab.id === 'models' ? 'hidden sm:block' : ''
-            } ${
-              activeTab === tab.id
-                ? 'text-emerald-500 border-b-2 border-emerald-500 bg-white/5'
-                : 'text-gray-400 hover:text-white hover:bg-white/5'
-            }`}
+
+            className={`px-6 py-4 text-sm font-bold uppercase transition-colors 
+                     text-emerald-500 border-b-2 border-emerald-500 bg-white/5'
+          `}
           >
-            {tab.label}
+            programs
           </button>
-        ))}
       </div>
 
       {/* Search and Filters */}
@@ -118,6 +118,8 @@ export default function ProgramsTable({data}) {
           <input
             type="text"
             placeholder="Search programs..."
+            value={searchQuery}              
+            onChange={(e) => setSearchQuery(e.target.value)} 
             className="w-full bg-gray-900 border border-white/10 rounded-lg pl-10 pr-4 py-2 text-sm text-white focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 placeholder-gray-600 transition-colors outline-none"
           />
         </div>
@@ -126,10 +128,8 @@ export default function ProgramsTable({data}) {
             <FiFilter className="w-4 h-4" />
             Filter
           </button>
-          <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-gray-900 border border-white/10 text-gray-300 hover:text-white px-3 py-2 rounded-lg text-xs font-bold uppercase transition-colors">
-            <FiDownload className="w-4 h-4" />
-            Export
-          </button>
+
+          <ExportButton data={programsData} />
         </div>
       </div>
 
@@ -146,7 +146,14 @@ export default function ProgramsTable({data}) {
             </tr>
           </thead>
           <tbody className="text-sm divide-y divide-white/5">
-            {programs.map((program) => {
+            {programs.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="p-4 text-center text-gray-500">
+                    No Results
+                  </td>
+                </tr>
+              ) : (            
+            programs.map((program) => {
               const statusStyle = statusConfig[program.status];
               return (
                 <tr key={program.id} className="hover:bg-white/5 transition-colors group">
@@ -218,7 +225,8 @@ export default function ProgramsTable({data}) {
                   </td>
                 </tr>
               );
-            })}
+            })
+            )}
           </tbody>
         </table>
       </div>
@@ -263,5 +271,6 @@ export default function ProgramsTable({data}) {
       </div>
 
     </div>
+    </>
   );
 }

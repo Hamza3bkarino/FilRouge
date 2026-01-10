@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${lexend.variable} font-display`}>
         {/* <Navbar /> */}
-        <NavbarAdmin/>
+        {/* <NavbarAdmin/> */}
         {children}
         <Toaster position="top-right" reverseOrder={false} />
       </body>

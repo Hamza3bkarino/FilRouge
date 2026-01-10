@@ -1,5 +1,6 @@
 'use client'
 import ProgramsTable from '@/app/components/admin/adminTable';
+import NavbarAdmin from '@/app/components/admin/Navbar';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -8,6 +9,7 @@ import { FiPlusCircle, FiPackage } from "react-icons/fi";
 import { MdOutlineClose } from "react-icons/md";
 
 export default function Dashboard() {
+  const [activeTab, setActiveTab] = useState('programs');
   const [add , setAdd] = useState(false);
   const [data , setData] = useState([]);
   const apiUrl = process.env.NEXT_PUBLIC_API;
@@ -62,7 +64,8 @@ export default function Dashboard() {
   ];
 
   return (
-    <> 
+    <>
+        <NavbarAdmin/> 
         <section className="max-w-7xl mx-auto w-full px-4 md:px-6 py-6">
         <div className="space-y-6">
             {/* Header */}
@@ -161,7 +164,7 @@ export default function Dashboard() {
         </section>
 
         <section>
-            <ProgramsTable data={data}/>
+            <ProgramsTable data={data} activeTab={activeTab} setActiveTab={setActiveTab}/>
         </section>
     </>
   );

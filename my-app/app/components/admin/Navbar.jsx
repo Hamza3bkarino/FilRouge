@@ -13,9 +13,11 @@ import {
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-export default function Navbar() {
+export default function NavbarAdmin() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-background-dark/95 border-b border-white/10">
@@ -35,23 +37,38 @@ export default function Navbar() {
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-8">
           <Link
-            href="/dashboard"
-            className="text-sm font-bold uppercase tracking-wide text-green-500 border-b-2 border-green-500 pb-0.5"
+            href="/admin/dashboard"
+            className={`text-sm font-bold uppercase tracking-wide pb-0.5 transition-colors ${
+              pathname === "/admin/dashboard"
+                ? "text-green-500 border-b-2 border-green-500"
+                : "text-gray-400 hover:text-white"
+            }`}
           >
             Dashboard
           </Link>
+
           <Link
-            href="/products"
-            className="text-sm font-bold uppercase tracking-wide text-gray-400 hover:text-white transition-colors"
+            href="/admin/dashboard/products"
+            className={`text-sm font-bold uppercase tracking-wide transition-colors ${
+              pathname.startsWith("/admin/dashboard/products")
+                ? "text-green-500 border-b-2 border-green-500"
+                : "text-gray-400 hover:text-white"
+            }`}
           >
             Products
           </Link>
+
           <Link
-            href="/programs"
-            className="text-sm font-bold uppercase tracking-wide text-gray-400 hover:text-white transition-colors"
+            href="/admin/dashboard/programs"
+            className={`text-sm font-bold uppercase tracking-wide transition-colors ${
+              pathname.startsWith("/admin/dashboard/programs")
+                ? "text-green-500 border-b-2 border-green-500"
+                : "text-gray-400 hover:text-white"
+            }`}
           >
             Programs
           </Link>
+
           <Link
             href="/orders"
             className="text-sm font-bold uppercase tracking-wide text-gray-400 hover:text-white transition-colors"
