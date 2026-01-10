@@ -1,19 +1,32 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FiSearch, FiFilter, FiDownload, FiStar, FiEdit, FiTrash2, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import DeleteProgramPopUp from './DeletePopUp';
+import axios from 'axios';
 
 export default function ProgramsTable({data}) {
   const [activeTab, setActiveTab] = useState('programs');
+  const [loading, setLoading] = useState(false);
   const [currentPage , setCurrentPage] = useState(1);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState(null);
+  const [programsData, setProgramsData] = useState(data);
+  const apiUrl = process.env.NEXT_PUBLIC_API;
 
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setProgramsData(data);
+    }
+  }, [data]); 
 
-  const totalResults = data.length;   
+ 
+  const totalResults = programsData.length;   
   const rowsPerPage = 6; 
 
   // this for slice data 6 per page
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
-  const currentPrograms = data.slice(startIndex, endIndex); 
+  const currentPrograms = programsData.slice(startIndex, endIndex); 
 
   const totalPages = Math.ceil(totalResults / rowsPerPage);
   let showingText = "";
@@ -62,6 +75,20 @@ export default function ProgramsTable({data}) {
     yellow: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
     indigo: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
   };
+
+  const handleDelete =async(id)=>{
+    setLoading(true)
+    try {
+      await axios.delete(`${apiUrl}${id}`)  
+      setProgramsData(prev => prev.filter(e => e.id !== id));
+      setShowDeleteModal(false);
+      setSelectedProgram(null);
+     } catch (error) {
+        console.log(error);
+     }finally{
+      setLoading(false)
+     }
+  }
 
   return (
     <div className="max-w-7xl mx-auto bg-gray-900/50 border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
@@ -168,9 +195,25 @@ export default function ProgramsTable({data}) {
                       <button className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
                         <FiEdit className="w-4 h-4" />
                       </button>
-                      <button className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg transition-colors">
+                      <button className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
+                         onClick={() => {
+                              setSelectedProgram(program);
+                              setShowDeleteModal(true);
+                            }}
+                      >
                         <FiTrash2 className="w-4 h-4" />
                       </button>
+
+                      {
+                        showDeleteModal && (
+                          <DeleteProgramPopUp 
+                            program={selectedProgram}
+                            onCancel={()=>setShowDeleteModal(false)}
+                            onDelete={()=>handleDelete(selectedProgram.id)}
+                            loading={loading}
+                            />
+                        )
+                      }
                     </div>
                   </td>
                 </tr>
