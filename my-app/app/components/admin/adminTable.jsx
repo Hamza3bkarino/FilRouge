@@ -2,65 +2,44 @@
 import { useState } from 'react';
 import { FiSearch, FiFilter, FiDownload, FiStar, FiEdit, FiTrash2, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-export default function ProgramsTable() {
+export default function ProgramsTable({data}) {
   const [activeTab, setActiveTab] = useState('programs');
+  const [currentPage , setCurrentPage] = useState(1);
 
-  const programs = [
-    {
-      id: 1,
-      name: 'Total Shred 30',
-      image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=200&h=200&fit=crop',
-      lastEdited: '2 hours ago',
-      level: { text: 'Advanced', color: 'blue' },
-      goal: { text: 'Fat Loss', color: 'orange' },
-      products: [
-        'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=100&h=100&fit=crop',
-        'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=100&h=100&fit=crop',
-      ],
-      productCount: 2,
-      status: 'active',
-    },
-    {
-      id: 2,
-      name: 'Morning Flow',
-      image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=200&h=200&fit=crop',
-      lastEdited: 'Yesterday',
-      level: { text: 'Beginner', color: 'green' },
-      goal: { text: 'Wellness', color: 'purple' },
-      products: [
-        'https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=100&h=100&fit=crop',
-      ],
-      productCount: 0,
-      status: 'draft',
-    },
-    {
-      id: 3,
-      name: 'Speed Demon',
-      image: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=200&h=200&fit=crop',
-      lastEdited: '3 days ago',
-      level: { text: 'Elite', color: 'red' },
-      goal: { text: 'Speed', color: 'yellow' },
-      products: [
-        'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=100&h=100&fit=crop',
-        'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=100&h=100&fit=crop',
-      ],
-      productCount: 1,
-      status: 'active',
-    },
-    {
-      id: 4,
-      name: 'Power Build',
-      image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=200&h=200&fit=crop',
-      lastEdited: '1 week ago',
-      level: { text: 'Intermediate', color: 'blue' },
-      goal: { text: 'Strength', color: 'indigo' },
-      products: [
-        'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=100&h=100&fit=crop',
-      ],
-      productCount: 2,
-      status: 'review',
-    },
-  ];
+
+  const totalResults = data.length;   
+  const rowsPerPage = 6; 
+
+  // this for slice data 6 per page
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+  const currentPrograms = data.slice(startIndex, endIndex); 
+
+  const totalPages = Math.ceil(totalResults / rowsPerPage);
+  let showingText = "";
+
+  if (totalPages < 1) {
+    showingText = "No results";
+  } else if (totalPages === 1) {
+    showingText = `1 of ${totalResults} results`;
+  } else {
+    showingText = `1-${totalPages} of ${totalResults} results`;
+  }
+
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  
+
+
+  const programs = currentPrograms.map((item) => ({
+      id: item.id,
+      name: item.name,
+      image: item.image,
+      CreatedAt: item.createdAt,
+      level: { text: item.level, color: item.level === "Beginner" ? "green" : "blue" },
+      goal: { text:item.goal, color: item.goal === "Fat Loss" ? "orange" : "purple" },
+      description : item.description,
+      status: item.status === "spero" ? "active" : "draft",
+    }));
 
   const tabs = [
     { id: 'programs', label: 'Programs' },
@@ -71,7 +50,7 @@ export default function ProgramsTable() {
   const statusConfig = {
     active: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', border: 'border-emerald-500/20', dot: 'bg-emerald-500' },
     draft: { bg: 'bg-white/5', text: 'text-gray-400', border: 'border-white/10', dot: 'bg-gray-500' },
-    review: { bg: 'bg-yellow-500/10', text: 'text-yellow-400', border: 'border-yellow-500/20', dot: 'bg-yellow-500' },
+    // review: { bg: 'bg-yellow-500/10', text: 'text-yellow-400', border: 'border-yellow-500/20', dot: 'bg-yellow-500' },
   };
 
   const levelColors = {
@@ -134,7 +113,7 @@ export default function ProgramsTable() {
             <tr className="bg-white/5 text-gray-400 text-xs uppercase font-bold tracking-wider border-b border-white/5">
               <th className="p-4">Program Name</th>
               <th className="p-4">Level & Goal</th>
-              <th className="p-4 hidden md:table-cell">Included Products</th>
+              <th className="p-4 hidden md:table-cell">Description</th>
               <th className="p-4">Status</th>
               <th className="p-4 text-right">Actions</th>
             </tr>
@@ -153,7 +132,7 @@ export default function ProgramsTable() {
                       />
                       <div>
                         <p className="font-bold text-white text-base">{program.name}</p>
-                        <p className="text-xs text-gray-500">Last edited: {program.lastEdited}</p>
+                        <p className="text-xs text-gray-500">Created At: {program.CreatedAt.split("T")[0]}</p>
                       </div>
                     </div>
                   </td>
@@ -168,20 +147,8 @@ export default function ProgramsTable() {
                     </div>
                   </td>
                   <td className="p-4 hidden md:table-cell">
-                    <div className="flex -space-x-2">
-                      {program.products.map((product, idx) => (
-                        <img
-                          key={idx}
-                          src={product}
-                          alt={`Product ${idx + 1}`}
-                          className="w-8 h-8 rounded-full border border-gray-900 bg-gray-800 object-cover"
-                        />
-                      ))}
-                      {program.productCount > 0 && (
-                        <div className="w-8 h-8 rounded-full border border-gray-900 bg-gray-800 flex items-center justify-center text-[10px] font-bold text-white bg-white/5">
-                          +{program.productCount}
-                        </div>
-                      )}
+                    <div className=" text-gray-500 line-clamp-2 w-62.5">
+                      {program.description}
                     </div>
                   </td>
                   <td className="p-4">
@@ -214,31 +181,44 @@ export default function ProgramsTable() {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between p-4 border-t border-white/5 bg-black/20">
-        <p className="text-xs text-gray-500">
-          Showing <span className="text-white font-bold">1-4</span> of <span className="text-white font-bold">24</span> results
+      <div className="flex items-center justify-between p-4 border-t border-white/5 bg-black/20"> 
+        <p className="text-gray-400 text-sm"> 
+          showing : {showingText}
         </p>
         <div className="flex gap-2">
-          <button
-            disabled
-            className="w-8 h-8 flex items-center justify-center rounded bg-gray-900 border border-white/10 text-gray-400 hover:text-white hover:border-white/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <FiChevronLeft className="w-4 h-4" />
-          </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded bg-emerald-500 text-black font-bold text-xs">
-            1
-          </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded bg-gray-900 border border-white/10 text-gray-400 hover:text-white hover:border-white/30 transition-colors text-xs">
-            2
-          </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded bg-gray-900 border border-white/10 text-gray-400 hover:text-white hover:border-white/30 transition-colors text-xs">
-            3
-          </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded bg-gray-900 border border-white/10 text-gray-400 hover:text-white hover:border-white/30 transition-colors">
-            <FiChevronRight className="w-4 h-4" />
-          </button>
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(currentPage - 1)}
+              className="w-8 h-8 flex items-center justify-center rounded bg-gray-900 border border-white/10 text-gray-400 hover:text-white hover:border-white/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <FiChevronLeft className="w-4 h-4" />
+            </button>
+
+            {/* Page Numbers */}
+            {pages.map((page) => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`w-8 h-8 flex items-center justify-center rounded text-xs font-bold transition-colors ${
+                  currentPage === page
+                    ? "bg-emerald-500 text-black"
+                    : "bg-gray-900 border border-white/10 text-gray-400 hover:text-white hover:border-white/30"
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(currentPage + 1)}
+              className="w-8 h-8 flex items-center justify-center rounded bg-gray-900 border border-white/10 text-gray-400 hover:text-white hover:border-white/30 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <FiChevronRight className="w-4 h-4" />
+            </button>
         </div>
       </div>
+
     </div>
   );
 }

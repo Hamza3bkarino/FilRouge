@@ -135,8 +135,8 @@ const handleSubmit = async(e) => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6">
       <button
-        onClick={() => router('/admin/programs')}
-        className="flex items-center gap-2 mb-6 text-gray-400 hover:text-white text-sm font-bold"
+        onClick={() => router.push('/admin/dashboard')}
+        className="cursor-pointer flex items-center gap-2 mb-6 text-gray-400 hover:text-white text-sm font-bold"
       >
         <FiArrowLeft />
         Back to Programs

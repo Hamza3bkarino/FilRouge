@@ -1,14 +1,26 @@
 'use client'
 import ProgramsTable from '@/app/components/admin/adminTable';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FiTrendingUp, FiMinus, FiAlertCircle, FiActivity, FiPlus, FiStar } from 'react-icons/fi';
 import { FiPlusCircle, FiPackage } from "react-icons/fi";
 import { MdOutlineClose } from "react-icons/md";
 
 export default function Dashboard() {
   const [add , setAdd] = useState(false);
+  const [data , setData] = useState([]);
+  const apiUrl = process.env.NEXT_PUBLIC_API;
   const router = useRouter();
+
+  useEffect(()=>{
+    axios.get(apiUrl)
+        .then(res => setData(res.data))
+        .catch(err => console.log(err)
+        )
+  },[])
+  console.log('data : ',data);
+  
 
   const stats = [
     {
@@ -149,7 +161,7 @@ export default function Dashboard() {
         </section>
 
         <section>
-            <ProgramsTable/>
+            <ProgramsTable data={data}/>
         </section>
     </>
   );
