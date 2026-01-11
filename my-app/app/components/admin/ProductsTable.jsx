@@ -4,10 +4,10 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { FiSearch, FiFilter, FiDownload, FiStar, FiEdit, FiTrash2, FiChevronLeft, FiChevronRight, FiPlus } from 'react-icons/fi';
-import DeleteProgramPopUp from './DeletePopUp';
 import axios from 'axios';
 import ExportButton from './Export';
 import { useRouter } from 'next/navigation';
+import DeleteDataPopUp from './DeletePopUp';
 
 export default function ProductTable() {
   const [loading, setLoading] = useState(false);
@@ -54,42 +54,22 @@ export default function ProductTable() {
   
 
 
-//   const products = currentProducts.map((item) => ({
-//       id: item.id,
-//       name: item.name,
-//       image: item.image,
-//       CreatedAt: item.createdAt,
-//       price : item.price,
-//       description : item.description,
-//       stock: item.stock ,
-//     }));
-
-  // const tabs = [
-  //   { id: 'programs', label: 'Programs' },
-  //   { id: 'products', label: 'Products' },
-  //   { id: 'models', label: 'AI Models' },
-  // ];
-
-//   const statusConfig = {
-//     active: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', border: 'border-emerald-500/20', dot: 'bg-emerald-500' },
-//     draft: { bg: 'bg-white/5', text: 'text-gray-400', border: 'border-white/10', dot: 'bg-gray-500' },
-//   };
 
 
 
-//   const handleDelete =async(id)=>{
-//     setLoading(true)
-//     try {
-//       await axios.delete(`${apiUrl}${id}`)  
-//       setProgramsData(prev => prev.filter(e => e.id !== id));
-//       setShowDeleteModal(false);
-//       setSelectedProgram(null);
-//      } catch (error) {
-//         console.log(error);
-//      }finally{
-//       setLoading(false)
-//      }
-//   }
+  const handleDelete =async(id)=>{
+    setLoading(true)
+    try {
+      await axios.delete(`${apiUrlProducts}${id}`)  
+      setData(prev => prev.filter(e => e.id !== id));
+      setShowDeleteModal(false);
+      setSelectedProduct(null);
+     } catch (error) {
+        console.log(error);
+     }finally{
+      setLoading(false)
+     }
+  }
 
   return (
     <>
@@ -110,7 +90,7 @@ export default function ProductTable() {
         {/* Right Button */}
         <button
             onClick={() => router.push("/admin/dashboard/products/add")}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500 text-black text-sm font-bold hover:bg-green-600 transition"
+            className="flex items-center cursor-pointer gap-2 px-4 py-2 rounded-lg bg-green-500 text-black text-sm font-bold hover:bg-green-600 transition"
         >
             <FiPlus className="w-4 h-4" />
             Add Product
@@ -120,11 +100,11 @@ export default function ProductTable() {
     </div>
         <div className="max-w-7xl mx-auto my-6 bg-gray-900/50 border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
         {/* Tabs */}
-        <div className="flex border-b border-white/5">
+        <div className="flex border-b border-white/5 ">
             
             <button
 
-                className={`px-6 py-4 text-sm font-bold uppercase transition-colors 
+                className={`w-full px-6 py-4 text-sm font-bold uppercase transition-colors 
                         text-emerald-500 border-b-2 border-emerald-500 bg-white/5'
             `}
             >
@@ -150,7 +130,7 @@ export default function ProductTable() {
             Filter
           </button>
 
-          <ExportButton data={data} />
+          <ExportButton data={data} type="products" />
         </div>
       </div>
 
@@ -195,7 +175,7 @@ export default function ProductTable() {
                     </td>
 
                     <td className="p-4 hidden md:table-cell ">
-                        <div className='text-gray-400 line-clamp-2 max-w-[250px]'>
+                        <div className='text-gray-400 line-clamp-2 max-w-62.5'>
                             {product.description}
                         </div>
                     </td>
@@ -206,7 +186,9 @@ export default function ProductTable() {
 
                     <td className="p-4 text-right">
                     <div className="flex justify-end gap-2">
-                        <button className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg">
+                        <button className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg"
+                          onClick={()=>router.push(`/admin/dashboard/products/edit/${product.id}`)}
+                        >
                         <FiEdit />
                         </button>
                         <button
@@ -218,6 +200,17 @@ export default function ProductTable() {
                         >
                         <FiTrash2 />
                         </button>
+
+                        {
+                         showDeleteModal && (
+                           <DeleteDataPopUp 
+                             data={selectedProduct}
+                             onCancel={()=>setShowDeleteModal(false)}
+                             onDelete={()=>handleDelete(selectedProduct.id)}
+                             loading={loading}
+                             />
+                         )
+                        }
                     </div>
                     </td>
                 </tr>

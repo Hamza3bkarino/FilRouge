@@ -1,6 +1,6 @@
 
 
-export default function DeleteProgramPopUp({ program, onCancel, onDelete , loading}) {
+export default function DeleteDataPopUp({ data, onCancel, onDelete , loading}) {
 
 
   return (
@@ -8,7 +8,7 @@ export default function DeleteProgramPopUp({ program, onCancel, onDelete , loadi
       <div className="bg-gray-900 rounded-xl p-6 max-w-sm w-full text-center">
         <h2 className="text-xl font-bold text-white mb-4">Confirm Delete</h2>
         <p className="text-gray-400 mb-6">
-          Are you sure you want to delete <span className="font-bold">{program.name}</span>?
+          Are you sure you want to delete <span className="font-bold">{data.name}</span>?
         </p>
         <div className="flex justify-between gap-4">
           <button

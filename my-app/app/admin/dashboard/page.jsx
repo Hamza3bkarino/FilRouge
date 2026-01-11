@@ -1,5 +1,5 @@
 'use client'
-import ProgramsTable from '@/app/components/admin/adminTable';
+import ProgramsTable from '@/app/components/admin/adminProgramTable';
 import NavbarAdmin from '@/app/components/admin/Navbar';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -11,20 +11,84 @@ import { MdOutlineClose } from "react-icons/md";
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('programs');
   const [add , setAdd] = useState(false);
-  const [data , setData] = useState([]);
-  const apiUrl = process.env.NEXT_PUBLIC_API;
   const router = useRouter();
 
-  useEffect(()=>{
-    axios.get(apiUrl)
-        .then(res => setData(res.data))
-        .catch(err => console.log(err)
-        )
-  },[])
-  console.log('data : ',data);
+
   
 
   const stats = [
+    {
+      title: 'Active Programs',
+      value: '24',
+      trend: '+12% this month',
+      trendIcon: FiTrendingUp,
+      trendColor: 'text-green-200',
+      iconBg: 'text-emerald-500',
+      icon: <FiActivity />,
+    },
+    {
+      title: 'Total Products',
+      value: '1,208',
+      trend: 'Stable',
+      trendIcon: FiMinus,
+      trendColor: 'text-gray-500',
+      iconBg: 'text-blue-400',
+      icon: <FiStar />,
+    },
+    {
+      title: 'Low Stock Alerts',
+      value: '5',
+      trend: 'Action needed',
+      trendIcon: FiAlertCircle,
+      trendColor: 'text-red-400',
+      iconBg: 'text-yellow-400',
+      icon: <FiAlertCircle />,
+    },
+    {
+      title: 'AI Gens Today',
+      value: '142',
+      trend: '+45% usage',
+      trendIcon: FiTrendingUp,
+      trendColor: 'text-green-500',
+      iconBg: 'text-purple-400',
+      icon: <FiStar />,
+    },
+    {
+      title: 'Active Programs',
+      value: '24',
+      trend: '+12% this month',
+      trendIcon: FiTrendingUp,
+      trendColor: 'text-green-200',
+      iconBg: 'text-emerald-500',
+      icon: <FiActivity />,
+    },
+    {
+      title: 'Total Products',
+      value: '1,208',
+      trend: 'Stable',
+      trendIcon: FiMinus,
+      trendColor: 'text-gray-500',
+      iconBg: 'text-blue-400',
+      icon: <FiStar />,
+    },
+    {
+      title: 'Low Stock Alerts',
+      value: '5',
+      trend: 'Action needed',
+      trendIcon: FiAlertCircle,
+      trendColor: 'text-red-400',
+      iconBg: 'text-yellow-400',
+      icon: <FiAlertCircle />,
+    },
+    {
+      title: 'AI Gens Today',
+      value: '142',
+      trend: '+45% usage',
+      trendIcon: FiTrendingUp,
+      trendColor: 'text-green-500',
+      iconBg: 'text-purple-400',
+      icon: <FiStar />,
+    },
     {
       title: 'Active Programs',
       value: '24',
@@ -98,8 +162,8 @@ export default function Dashboard() {
                             <div className="bg-gray-900 w-full max-w-md rounded-2xl p-6 relative">
 
                                 <button
-                                onClick={() => setOpen(false)}
-                                className="absolute top-4 -right-5 text-gray-400 hover:text-white transition"
+                                    onClick={() => setOpen(false)}
+                                    className="absolute top-4 right-2 text-gray-400 hover:text-white transition"
                                 >
                                     <MdOutlineClose className='text-[20px] cursor-pointer' onClick={()=>setAdd(false)}/>
                                 </button>
@@ -109,7 +173,7 @@ export default function Dashboard() {
                                 {/* Options */}
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {/* Add Program */}
-                                <button className="flex flex-col items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 transition p-4 rounded-xl text-white"
+                                <button className="flex cursor-pointer flex-col items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 transition p-4 rounded-xl text-white"
                                     onClick={()=>router.push('/admin/addprogram')}
                                 >
                                     <FiPlusCircle className="w-8 h-8 text-emerald-500" />
@@ -117,7 +181,9 @@ export default function Dashboard() {
                                 </button>
 
                                 {/* Add Product */}
-                                <button className="flex flex-col items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 transition p-4 rounded-xl text-white">
+                                <button className="flex flex-col items-center justify-center gap-2 bg-gray-800 cursor-pointer hover:bg-gray-700 transition p-4 rounded-xl text-white"
+                                    onClick={()=>router.push('/admin/dashboard/products/add')}
+                                >
                                     <FiPackage className="w-8 h-8 text-blue-400" />
                                     <span className="font-bold text-sm">Add Product</span>
                                 </button>
@@ -163,9 +229,7 @@ export default function Dashboard() {
         </div>
         </section>
 
-        <section>
-            <ProgramsTable data={data} activeTab={activeTab} setActiveTab={setActiveTab}/>
-        </section>
+
     </>
   );
 }

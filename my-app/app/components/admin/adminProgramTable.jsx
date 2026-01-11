@@ -1,26 +1,29 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { FiSearch, FiFilter, FiDownload, FiStar, FiEdit, FiTrash2, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import DeleteProgramPopUp from './DeletePopUp';
 import axios from 'axios';
 import ExportButton from './Export';
+import DeleteDataPopUp from './DeletePopUp';
+import { useRouter } from 'next/navigation';
 
-export default function ProgramsTable({data,activeTab,setActiveTab}) {
-  // const [activeTab, setActiveTab] = useState('programs');
+export default function ProgramsTable() {
   const [loading, setLoading] = useState(false);
   const [currentPage , setCurrentPage] = useState(1);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedProgram, setSelectedProgram] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [programsData, setProgramsData] = useState(data);
+  const [programsData, setProgramsData] = useState([]);
+  const router = useRouter();
   const apiUrl = process.env.NEXT_PUBLIC_API;
 
-  useEffect(() => {
-    if (data && data.length > 0) {
-      setProgramsData(data);
-    }
-  }, [data]); 
 
+  useEffect(()=>{
+    axios.get(apiUrl)
+        .then(res => setProgramsData(res.data))
+        .catch(err => console.log(err)
+        )
+  },[])
+console.log(programsData);
 
   const filteredPrograms = programsData.filter((p) =>
       p.name.toLowerCase().includes(searchQuery.toLowerCase())   // filter of search
@@ -53,32 +56,16 @@ export default function ProgramsTable({data,activeTab,setActiveTab}) {
       name: item.name,
       image: item.image,
       CreatedAt: item.createdAt,
-      level: { text: item.level, color: item.level === "Beginner" ? "green" : "blue" },
-      goal: { text:item.goal, color: item.goal === "Fat Loss" ? "orange" : "purple" },
+      level:  item.level,
+      goal: item.goal ,
+      duration: item.duration ,
       description : item.description,
-      status: item.status === "spero" ? "active" : "draft",
+      status: item.status ,
     }));
 
-  // const tabs = [
-  //   { id: 'programs', label: 'Programs' },
-  //   { id: 'products', label: 'Products' },
-  //   { id: 'models', label: 'AI Models' },
-  // ];
 
-  const statusConfig = {
-    active: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', border: 'border-emerald-500/20', dot: 'bg-emerald-500' },
-    draft: { bg: 'bg-white/5', text: 'text-gray-400', border: 'border-white/10', dot: 'bg-gray-500' },
-  };
 
-  const levelColors = {
-    blue: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-    green: 'bg-green-500/10 text-green-400 border-green-500/20',
-    red: 'bg-red-500/10 text-red-400 border-red-500/20',
-    orange: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
-    purple: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-    yellow: 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-    indigo: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
-  };
+
 
   const handleDelete =async(id)=>{
     setLoading(true)
@@ -94,6 +81,31 @@ export default function ProgramsTable({data,activeTab,setActiveTab}) {
      }
   }
 
+
+
+  const toggleActivation = async (program) => {
+      const newStatus = program.status === "active" ? "draft" : "active";
+      console.log(newStatus);
+
+      try {
+        await axios.put(`${apiUrl}${program.id}`, {
+        ...program,       // send all fields, not just status
+        status: newStatus,
+        }
+      )
+
+        // Update UI immediately
+        setProgramsData((prev) =>
+          prev.map((p) =>
+            p.id === program.id ? { ...p, status: newStatus } : p
+          )
+        );
+      } catch (error) {
+        console.error("Failed to update status", error);
+      }
+};
+
+
   return (
     <>
     
@@ -103,7 +115,7 @@ export default function ProgramsTable({data,activeTab,setActiveTab}) {
         
           <button
 
-            className={`px-6 py-4 text-sm font-bold uppercase transition-colors 
+            className={`w-full px-6 py-4 text-sm font-bold uppercase transition-colors 
                      text-emerald-500 border-b-2 border-emerald-500 bg-white/5'
           `}
           >
@@ -129,7 +141,7 @@ export default function ProgramsTable({data,activeTab,setActiveTab}) {
             Filter
           </button>
 
-          <ExportButton data={programsData} />
+          <ExportButton data={programsData} type="programs" />
         </div>
       </div>
 
@@ -154,7 +166,6 @@ export default function ProgramsTable({data,activeTab,setActiveTab}) {
                 </tr>
               ) : (            
             programs.map((program) => {
-              const statusStyle = statusConfig[program.status];
               return (
                 <tr key={program.id} className="hover:bg-white/5 transition-colors group">
                   <td className="p-4">
@@ -166,17 +177,17 @@ export default function ProgramsTable({data,activeTab,setActiveTab}) {
                       />
                       <div>
                         <p className="font-bold text-white text-base">{program.name}</p>
-                        <p className="text-xs text-gray-500">Created At: {program.CreatedAt.split("T")[0]}</p>
+                        <p className="text-xs text-gray-500">Duration: {program.duration}</p>
                       </div>
                     </div>
                   </td>
                   <td className="p-4">
                     <div className="space-y-1">
-                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${levelColors[program.level.color]}`}>
-                        {program.level.text}
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${program.level==='Beginner'?'bg-green-500/10 text-green-400 border-green-500/20':'bg-blue-500/10 text-blue-400 border-blue-500/20'}`}>
+                        {program.level}
                       </span>
-                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${levelColors[program.goal.color]}`}>
-                        {program.goal.text}
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${"Fat Loss" ?'bg-orange-500/10 text-orange-400 border-orange-500/20':'bg-purple-500/10 text-purple-400 border-purple-500/20'}`}>
+                        {program.goal}
                       </span>
                     </div>
                   </td>
@@ -186,21 +197,46 @@ export default function ProgramsTable({data,activeTab,setActiveTab}) {
                     </div>
                   </td>
                   <td className="p-4">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full ${statusStyle.bg} ${statusStyle.text} border ${statusStyle.border} text-xs font-bold uppercase`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${statusStyle.dot} ${program.status === 'active' ? 'animate-pulse' : ''}`}></span>
+                    <span
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold uppercase ${
+                        program.status === "active"
+                          ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+                          : "bg-white/5 text-gray-400 border border-white/10"
+                      }`}
+                    >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          program.status === "active" ? "bg-emerald-500 animate-pulse" : "bg-gray-500"
+                        }`}
+                      ></span>
                       {program.status}
                     </span>
                   </td>
+
                   <td className="p-4 text-right">
                     <div className="flex items-center justify-end gap-1">
-                      <button className="p-2 text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition-colors group/btn relative" title="AI Enhance">
-                        <FiStar className="w-4 h-4" />
-                        <div className="absolute bottom-full right-0 mb-2 w-max px-2 py-1 bg-black text-white text-[10px] rounded opacity-0 group-hover/btn:opacity-100 transition-opacity pointer-events-none">
-                          AI Enhance
-                        </div>
+                      <button
+                          onClick={() => toggleActivation(program)}
+                          className={`p-2 rounded-lg transition-colors relative group/btn
+                            ${
+                              program.status === "active"
+                                ? "text-emerald-500 bg-emerald-500/10"
+                                : "text-gray-400 hover:text-yellow-400 hover:bg-yellow-400/10"
+                            }
+                          `}
+                        >
+                          <FiStar className="w-4 h-4" />
+
+                          {/* Tooltip */}
+                          <div className="absolute bottom-full right-0 mb-2 w-max px-2 py-1 bg-black text-white text-[10px] rounded opacity-0 group-hover/btn:opacity-100 transition-opacity pointer-events-none">
+                            {program.status === "active" ? "Deactivate" : "Activate"}
+                          </div>
                       </button>
-                      <button className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
-                        <FiEdit className="w-4 h-4" />
+
+                      <button className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                        onClick={()=>router.push(`/admin/dashboard/programs/edit/${program.id}`)}
+                      >
+                        <FiEdit className="w-4 h-4"  />
                       </button>
                       <button className="p-2 text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
                          onClick={() => {
@@ -213,8 +249,8 @@ export default function ProgramsTable({data,activeTab,setActiveTab}) {
 
                       {
                         showDeleteModal && (
-                          <DeleteProgramPopUp 
-                            program={selectedProgram}
+                          <DeleteDataPopUp 
+                            data={selectedProgram}
                             onCancel={()=>setShowDeleteModal(false)}
                             onDelete={()=>handleDelete(selectedProgram.id)}
                             loading={loading}

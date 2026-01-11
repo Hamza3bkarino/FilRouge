@@ -21,6 +21,8 @@ export default function AddProgram() {
     description: '',
     level: '',
     goal: '',
+    duration: '',
+    price: '',
     image: null,
   });
 
@@ -42,9 +44,10 @@ const handleAIDescription = async () => {
     return alert("Fill all fields!");
   }
 
-  const prompt = `Write a **concise, catchy, and professional** description for a fitness program named "${form.name}". 
-It should be **1-2 sentences**, highlight the **level (${form.level})** and **goal (${form.goal})**, 
-and make it sound **fun, motivating, and persuasive**. Avoid fluff, focus on benefits.`;
+  const prompt = `Write a concise, catchy, and professional description for a fitness program named "${form.name}".
+        It lasts ${form.duration}, is designed for ${form.level} level users,
+        and focuses on the goal of ${form.goal}.
+        Keep it motivating and benefit-focused.`;
 
   try {
      setLoadingAI(true);
@@ -76,7 +79,7 @@ and make it sound **fun, motivating, and persuasive**. Avoid fluff, focus on ben
 
 const handleSubmit = async(e) => {
   e.preventDefault();
-  setLoading(true)
+  
 
   let valid = true;
   const newError = {};
@@ -97,6 +100,16 @@ const handleSubmit = async(e) => {
     newError.goal = 'Goal is required';
     valid = false;
   }
+  if (!form.duration.trim()) {
+    newError.duration = 'Duration is required';
+    valid = false;
+  }
+
+  if (!form.price || Number(form.price) <= 0) {
+    newError.price = 'Valid price is required';
+    valid = false;
+  }
+
   if(!form.image || (typeof form.image === 'string' && !form.image.trim())) {
     newError.image = 'Image is required';
     valid = false;
@@ -108,6 +121,7 @@ const handleSubmit = async(e) => {
     setErrors({});
 
     try {
+      setLoading(true)
         
         const imageUrl = await uploadToCloudinary(form.image);
         const res = await axios.post(apiUrl, {
@@ -119,6 +133,7 @@ const handleSubmit = async(e) => {
        toast.success("AI description generated!")
 
         console.log('Form is valid, saved:', res.data);
+        router.push('/admin/dashboard/programs')
     } catch (error) {
         toast.error('Failed to generate description')
         console.error('Failed to save:', error.message);
@@ -135,7 +150,7 @@ const handleSubmit = async(e) => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-6">
       <button
-        onClick={() => router.push('/admin/dashboard')}
+        onClick={() => router.push('/admin/dashboard/programs')}
         className="cursor-pointer flex items-center gap-2 mb-6 text-gray-400 hover:text-white text-sm font-bold"
       >
         <FiArrowLeft />
@@ -235,6 +250,47 @@ const handleSubmit = async(e) => {
           </div>
         </div>
 
+        {/* Duration & Price */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Duration */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase text-gray-400 mb-1">
+              Duration
+            </label>
+            <input
+              type="text"
+              name="duration"
+              value={form.duration}
+              onChange={handleInputChange}
+              placeholder="e.g. 8 weeks"
+              className="bg-gray-800 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            />
+            {errors.duration && (
+              <p className="text-red-600 text-[13px]">{errors.duration}</p>
+            )}
+          </div>
+
+          {/* Price */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase text-gray-400 mb-1">
+              Price ($)
+            </label>
+            <input
+              type="number"
+              name="price"
+              value={form.price}
+              onChange={handleInputChange}
+              placeholder="e.g. 99"
+              min="0"
+              className="bg-gray-800 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            />
+            {errors.price && (
+              <p className="text-red-600 text-[13px]">{errors.price}</p>
+            )}
+          </div>
+        </div>
+
+
         {/* Description */}
         <div className="flex flex-col">
           <label className="text-xs font-bold uppercase text-gray-400 mb-1">
@@ -270,9 +326,9 @@ const handleSubmit = async(e) => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full mt-4 bg-emerald-500 text-black font-bold uppercase py-3 rounded-lg hover:bg-emerald-400 transition-shadow shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+          className="w-full mt-4 cursor-pointer bg-emerald-500 text-black font-bold uppercase py-3 rounded-lg hover:bg-emerald-400 transition-shadow shadow-[0_0_15px_rgba(16,185,129,0.3)]"
         >
-          {loading?'loading ...':"Add Program"}
+          {loading ?'loading ...':"Add Program"}
         </button>
       </form>
     </div>
