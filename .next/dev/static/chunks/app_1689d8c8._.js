@@ -416,6 +416,52 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
 }),
+"[project]/app/lib/Redux/NotificationSlice.js [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "addNotification",
+    ()=>addNotification,
+    "clearNotifications",
+    ()=>clearNotifications,
+    "default",
+    ()=>__TURBOPACK__default__export__,
+    "markAsRead",
+    ()=>markAsRead
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-client] (ecmascript) <locals>");
+;
+const notificationSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
+    name: "notifications",
+    initialState: {
+        items: []
+    },
+    reducers: {
+        addNotification (state, action) {
+            state.items.unshift({
+                id: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["nanoid"])(),
+                ...action.payload,
+                read: false,
+                createdAt: new Date().toISOString()
+            });
+        },
+        markAsRead (state, action) {
+            const notification = state.items.find((n)=>n.id === action.payload);
+            if (notification) {
+                notification.read = true;
+            }
+        },
+        clearNotifications (state) {
+            state.items = [];
+        }
+    }
+});
+const { addNotification, markAsRead, clearNotifications } = notificationSlice.actions;
+const __TURBOPACK__default__export__ = notificationSlice.reducer;
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
 "[project]/app/lib/Redux/store.js [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -428,6 +474,7 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-client] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$programSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/lib/Redux/programSlice.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$productSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/lib/Redux/productSlice.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$NotificationSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/lib/Redux/NotificationSlice.js [app-client] (ecmascript)");
 ;
 ;
 ;
@@ -436,7 +483,7 @@ const store = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2
     reducer: {
         programs: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$programSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
         products: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$productSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"],
-        notifications: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$productSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+        notifications: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$NotificationSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
     }
 });
 const __TURBOPACK__default__export__ = store;
@@ -489,4 +536,4 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 }),
 ]);
 
-//# sourceMappingURL=app_9d11c51a._.js.map
+//# sourceMappingURL=app_1689d8c8._.js.map

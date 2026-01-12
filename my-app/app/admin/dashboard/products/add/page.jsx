@@ -5,17 +5,21 @@ import { FiZap, FiArrowLeft } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { addNotification } from "@/app/lib/Redux/NotificationSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function AddProduct() {
   const router = useRouter();
   const apiUrl = process.env.NEXT_PUBLIC_API_PRODUCT;
   const cloudinaryURL = process.env.NEXT_PUBLIC_CLOUDINARY;
   const Preset = process.env.NEXT_PUBLIC_UPLOAD_PRESET;
-
+  const dispatch = useDispatch();
   const [loadingAI, setLoadingAI] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-
+  // const Notification = useSelector((state)=>state.notifications.items);
+  // console.log(Notification);
+  
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -111,6 +115,12 @@ It should be 1-2 sentences, persuasive, and focused on benefits.`;
       });
 
       toast.success("Product added successfully!");
+      dispatch(addNotification({
+        type: "product",
+        title: "Product Added",
+        message: `${form.name} added successfully`
+      }));
+
       router.push("/admin/dashboard/products");
     } catch (error) {
       toast.error("Failed to add product");

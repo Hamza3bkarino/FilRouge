@@ -14,10 +14,17 @@ import { MdOutlineAdminPanelSettings } from "react-icons/md";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function NavbarAdmin() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const dispatch = useDispatch();
+  const notification = useSelector(state => state.notifications.items);
+  console.log(notification);
+  
+  const unreadCount = notification.filter(n => !n.read).length;
+
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-background-dark/95 border-b border-white/10">
@@ -79,10 +86,18 @@ export default function NavbarAdmin() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
-          <button className="size-9 flex items-center justify-center rounded-full bg-surface-dark border border-white/10 text-gray-400 hover:text-white hover:border-green-500/50 transition">
+          <button
+            onClick={() => dispatch(markAllRead())}
+            className="relative size-9 flex items-center justify-center rounded-full bg-surface-dark border border-white/10 text-gray-400 hover:text-white hover:border-green-500/50 transition"
+          >
             <FiBell />
-          </button>
 
+            {unreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5">
+                {unreadCount}
+              </span>
+            )}
+          </button>
           {/* Admin */}
           <div className="hidden md:flex items-center gap-2 pl-3 border-l border-white/10">
             <div className="size-8 rounded-full bg-linear-to-tr from-green-500 to-emerald-500 p-px">
