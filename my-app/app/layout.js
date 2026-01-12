@@ -1,18 +1,10 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"], // include bold weights
-  variable: "--font-inter",
-  display: "swap",
-});
-
 import { Lexend } from 'next/font/google';
-import NavbarAdmin from "./components/admin/Navbar";
 import { Toaster } from "react-hot-toast";
+import Providers from "./providers";
 
 const lexend = Lexend({
   subsets: ['latin'],
@@ -31,8 +23,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${lexend.variable} font-display`}>
         {/* <Navbar /> */}
-        {/* <NavbarAdmin/> */}
+      <Providers >
         {children}
+      </Providers>
         <Toaster position="top-right" reverseOrder={false} />
       </body>
     </html>
