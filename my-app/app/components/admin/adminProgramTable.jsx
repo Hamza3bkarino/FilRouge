@@ -55,7 +55,7 @@ export default function ProgramsTable() {
       <div className="flex justify-between items-center border-b border-white/5 p-4">
         <h2 className="text-white font-bold uppercase">Programs</h2>
         <button
-          onClick={() => router.push("/admin/dashboard/programs/addprogram")}
+          onClick={() => router.push("/admin/addprogram")}
           className="flex items-center gap-2 bg-green-500 px-4 py-2 rounded-lg text-black font-bold hover:bg-green-600"
         >
           <FiPlus className="w-4 h-4" />
