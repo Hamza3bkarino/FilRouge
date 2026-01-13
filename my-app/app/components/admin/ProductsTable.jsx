@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { FiSearch, FiFilter, FiEdit, FiTrash2, FiChevronLeft, FiChevronRight, FiPlus } from 'react-icons/fi';
 import DeleteDataPopUp from "./DeletePopUp";
 import ExportButton from "./Export";
+import { addNotification } from "@/app/lib/Redux/NotificationSlice";
 
 export default function ProductTable() {
   const dispatch = useDispatch();
@@ -42,9 +43,15 @@ export default function ProductTable() {
   const handleDelete = (id) => {
     dispatch(deleteProduct(id));
     setShowDeleteModal(false);
+    dispatch(addNotification({
+      type: "product",
+      title: "Product Deleted",
+      message: `${selectedProduct.name} deleted successfully`,
+      type:'deleted'
+    }))
     setSelectedProduct(null);
   };
-
+  
   return (
     <div className="max-w-7xl mx-auto my-20 bg-gray-900/50 border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
       

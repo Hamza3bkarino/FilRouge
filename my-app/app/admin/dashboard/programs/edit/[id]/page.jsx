@@ -5,6 +5,9 @@ import { FiZap, FiArrowLeft } from 'react-icons/fi';
 import { useParams, useRouter } from 'next/navigation';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { updateProgramAsync } from '@/app/lib/Redux/programSlice';
+import { addNotification } from '@/app/lib/Redux/NotificationSlice';
 
 export default function EditProgram() {
   const router = useRouter();
@@ -12,7 +15,7 @@ export default function EditProgram() {
   const apiUrl = process.env.NEXT_PUBLIC_API;
   const cloudinaryURL = process.env.NEXT_PUBLIC_CLOUDINARY;
   const Preset = process.env.NEXT_PUBLIC_UPLOAD_PRESET;
-
+  const dispatch = useDispatch();
   const [loadingAI, setLoadingAI] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -120,11 +123,13 @@ export default function EditProgram() {
       if (form.image instanceof File) {
         imageUrl = await uploadToCloudinary(form.image);
       }
-
-      await axios.put(`${apiUrl}${id}`, {
-        ...form,
-        image: imageUrl
-      });
+      await dispatch(updateProgramAsync({ ...form, id, image: imageUrl })).unwrap();
+      dispatch(addNotification({
+         type: "programs",
+        title: "Programs Updated",
+        message: `${form.name} updated successfully`,
+        type:'updated'
+      }))
 
       toast.success("Program updated successfully!");
       router.push('/admin/dashboard/programs');

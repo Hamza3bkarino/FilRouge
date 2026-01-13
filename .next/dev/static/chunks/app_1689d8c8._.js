@@ -276,6 +276,8 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 "use strict";
 
 __turbopack_context__.s([
+    "addProgramAsync",
+    ()=>addProgramAsync,
     "default",
     ()=>__TURBOPACK__default__export__,
     "deleteProgramAsync",
@@ -283,7 +285,9 @@ __turbopack_context__.s([
     "fetchPrograms",
     ()=>fetchPrograms,
     "toggleProgramStatusAsync",
-    ()=>toggleProgramStatusAsync
+    ()=>toggleProgramStatusAsync,
+    "updateProgramAsync",
+    ()=>updateProgramAsync
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 // app/lib/Redux/programSlice.js
@@ -294,6 +298,14 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib
 const API_URL = ("TURBOPACK compile-time value", "https://69610355e7aa517cb797c72c.mockapi.io/Programs/");
 const fetchPrograms = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])("programs/fetchPrograms", async ()=>{
     const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(API_URL);
+    return response.data;
+});
+const addProgramAsync = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])("programs/addProgram", async (program)=>{
+    const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(API_URL, program);
+    return response.data;
+});
+const updateProgramAsync = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])("programs/updateProgram", async (program)=>{
+    const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].put(`${API_URL}${program.id}`, program);
     return response.data;
 });
 const deleteProgramAsync = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])("programs/deleteProgram", async (id)=>{
@@ -326,6 +338,13 @@ const programSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
         }).addCase(fetchPrograms.rejected, (state, action)=>{
             state.loading = false;
             state.error = action.error.message;
+        })// Add
+        .addCase(addProgramAsync.fulfilled, (state, action)=>{
+            state.items.push(action.payload);
+        })// Update
+        .addCase(updateProgramAsync.fulfilled, (state, action)=>{
+            const index = state.items.findIndex((p)=>p.id === action.payload.id);
+            if (index !== -1) state.items[index] = action.payload;
         })// Delete
         .addCase(deleteProgramAsync.fulfilled, (state, action)=>{
             state.items = state.items.filter((p)=>p.id !== action.payload);
@@ -372,8 +391,8 @@ const addProduct = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modu
     const res = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(apiUrlProducts, product);
     return res.data;
 });
-const updateProduct = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])("products/updateProduct", async (product)=>{
-    const res = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].put(`${apiUrlProducts}${product.id}`, product);
+const updateProduct = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])("products/updateProduct", async ({ id, product })=>{
+    const res = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].put(`${apiUrlProducts}${id}`, product);
     return res.data;
 });
 const deleteProduct = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])("products/deleteProduct", async (id)=>{
@@ -403,9 +422,7 @@ const deleteProduct = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_m
             state.items.push(action.payload);
         })/* UPDATE */ .addCase(updateProduct.fulfilled, (state, action)=>{
             const index = state.items.findIndex((p)=>p.id === action.payload.id);
-            if (index !== -1) {
-                state.items[index] = action.payload;
-            }
+            if (index !== -1) state.items[index] = action.payload;
         })/* DELETE */ .addCase(deleteProduct.fulfilled, (state, action)=>{
             state.items = state.items.filter((p)=>p.id !== action.payload);
         });
@@ -426,13 +443,21 @@ __turbopack_context__.s([
     ()=>clearNotifications,
     "default",
     ()=>__TURBOPACK__default__export__,
+    "deleteNotification",
+    ()=>deleteNotification,
+    "markAllRead",
+    ()=>markAllRead,
     "markAsRead",
     ()=>markAsRead
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-client] (ecmascript) <locals>");
 ;
 // Get from localStorage or empty
-const getLocal = ()=>JSON.parse(localStorage.getItem("notifications") || "[]");
+const getLocal = ()=>{
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    return JSON.parse(localStorage.getItem("notifications") || "[]");
+};
 const notificationSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
     name: "notifications",
     initialState: {
@@ -454,13 +479,24 @@ const notificationSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$no
             if (notif) notif.read = true;
             localStorage.setItem("notifications", JSON.stringify(state.items));
         },
+        markAllRead (state) {
+            state.items = state.items.map((n)=>({
+                    ...n,
+                    read: true
+                }));
+            localStorage.setItem("notifications", JSON.stringify(state.items));
+        },
         clearNotifications (state) {
             state.items = [];
             localStorage.setItem("notifications", JSON.stringify([]));
+        },
+        deleteNotification (state, action) {
+            state.items = state.items.filter((n)=>n.id !== action.payload);
+            localStorage.setItem("notifications", JSON.stringify(state.items));
         }
     }
 });
-const { addNotification, markAsRead, clearNotifications } = notificationSlice.actions;
+const { addNotification, markAsRead, markAllRead, deleteNotification, clearNotifications } = notificationSlice.actions;
 const __TURBOPACK__default__export__ = notificationSlice.reducer;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);

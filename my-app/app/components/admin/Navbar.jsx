@@ -9,21 +9,35 @@ import {
   FiBox,
   FiActivity,
   FiShoppingCart,
+  FiTrash2
 } from "react-icons/fi";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
+import { deleteNotification, markAllRead, markAsRead } from "@/app/lib/Redux/NotificationSlice";
 
 export default function NavbarAdmin() {
   const [open, setOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+
   const pathname = usePathname();
   const dispatch = useDispatch();
-  const notification = useSelector(state => state.notifications.items);
-  console.log(notification);
-  
-  const unreadCount = notification.filter(n => !n.read).length;
+
+  const notifications = useSelector(
+    (state) => state.notifications.items
+  );
+
+  const unreadCount = notifications.filter(n => !n.read).length;
+
+  const getNotifColor = (type) => {
+    switch(type) {
+      case "new": return "bg-green-900/50 text-white";
+      case "updated": return "bg-blue-900/50 text-white";
+      case "deleted": return "bg-red-900 text-white";
+      default: return "bg-gray-900 text-white";
+    }
+  };
 
 
   return (
@@ -43,61 +57,113 @@ export default function NavbarAdmin() {
 
         {/* Desktop Menu */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link
-            href="/admin/dashboard"
-            className={`text-sm font-bold uppercase tracking-wide pb-0.5 transition-colors ${
-              pathname === "/admin/dashboard"
-                ? "text-green-500 border-b-2 border-green-500"
-                : "text-gray-400 hover:text-white"
-            }`}
-          >
+          <NavLink href="/admin/dashboard" active={pathname === "/admin/dashboard"}>
             Dashboard
-          </Link>
-
-          <Link
+          </NavLink>
+          <NavLink
             href="/admin/dashboard/products"
-            className={`text-sm font-bold uppercase tracking-wide transition-colors ${
-              pathname.startsWith("/admin/dashboard/products")
-                ? "text-green-500 border-b-2 border-green-500"
-                : "text-gray-400 hover:text-white"
-            }`}
+            active={pathname.startsWith("/admin/dashboard/products")}
           >
             Products
-          </Link>
-
-          <Link
+          </NavLink>
+          <NavLink
             href="/admin/dashboard/programs"
-            className={`text-sm font-bold uppercase tracking-wide transition-colors ${
-              pathname.startsWith("/admin/dashboard/programs")
-                ? "text-green-500 border-b-2 border-green-500"
-                : "text-gray-400 hover:text-white"
-            }`}
+            active={pathname.startsWith("/admin/dashboard/programs")}
           >
             Programs
-          </Link>
-
-          <Link
-            href="/orders"
-            className="text-sm font-bold uppercase tracking-wide text-gray-400 hover:text-white transition-colors"
-          >
+          </NavLink>
+          <NavLink href="/orders" active={pathname === "/orders"}>
             Orders
-          </Link>
+          </NavLink>
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-3">
+        <div className="relative flex items-center gap-3 ">
+
+          {/* Bell */}
           <button
-            onClick={() => dispatch(markAllRead())}
-            className="relative size-9 flex items-center justify-center rounded-full bg-surface-dark border border-white/10 text-gray-400 hover:text-white hover:border-green-500/50 transition"
+            onClick={() => setShowNotifications(prev => !prev)}
+            className="cursor-pointer relative size-9 flex items-center justify-center rounded-full bg-surface-dark border border-white/10 text-gray-400 hover:text-white hover:border-green-500/50 transition"
           >
             <FiBell />
-
             {unreadCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5">
                 {unreadCount}
               </span>
             )}
           </button>
+
+          {/* Notifications Panel */}
+          {showNotifications && (
+            <div className="absolute bg-black right-0 top-12 w-80 bg-surface-dark border border-white/10 rounded-xl shadow-xl overflow-hidden z-50">
+
+              {/* Header */}
+              <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between">
+                <h3 className="text-sm font-bold text-white">
+                  Notifications
+                </h3>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => dispatch(markAllRead())}
+                    className="text-xs text-green-500 hover:underline"
+                  >
+                    Mark all
+                  </button>
+
+                  <button
+                    onClick={() => setShowNotifications(false)}
+                    className="cursor-pointer text-gray-400 hover:text-white transition"
+                  >
+                    <FiX size={16} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Body */}
+              <div className="max-h-72 overflow-y-auto bg-green-950">
+                {notifications.length === 0 ? (
+                  <p className="text-sm text-gray-400 px-4 py-6 text-center">
+                    No notifications
+                  </p>
+                ) : (
+                  notifications.map((item) => (
+                    <div
+                      key={item.id}
+                      className={`flex justify-between gap-3 px-4 py-3 border-b border-white/5 transition  ${
+                       item.read ? 
+                       "opacity-50 " 
+                       : 
+                       getNotifColor(item.type)
+                          
+                      }`}
+                      onClick={()=>dispatch(markAsRead(item.id))}
+                    >
+                      {/* Text */}
+                      <div className="flex-1 cursor-pointer">
+                        <p className="text-sm font-bold">{item.title}</p>
+                        <p className="text-xs mt-1">{item.message}</p>
+                        <p className="text-[10px] text-gray-500 mt-1">
+                          {new Date(item.createdAt).toLocaleString()}
+                        </p>
+                      </div>
+
+                      {/* Trash */}
+                      <button
+                        onClick={() => dispatch(deleteNotification(item.id))}
+                        className="cursor-pointer self-start text-gray-400 hover:text-red-500 transition"
+                      >
+                        <FiTrash2 size={14} />
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+
+
+            </div>
+          )}
+
           {/* Admin */}
           <div className="hidden md:flex items-center gap-2 pl-3 border-l border-white/10">
             <div className="size-8 rounded-full bg-linear-to-tr from-green-500 to-emerald-500 p-px">
@@ -105,10 +171,12 @@ export default function NavbarAdmin() {
                 <span className="text-xs font-bold text-green-500">AD</span>
               </div>
             </div>
-            <span className="text-xs font-bold text-gray-400">Admin User</span>
+            <span className="text-xs font-bold text-gray-400">
+              Admin User
+            </span>
           </div>
 
-          {/* Mobile Button */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setOpen(!open)}
             className="md:hidden size-10 flex items-center justify-center rounded-full hover:bg-white/10 transition"
@@ -122,10 +190,10 @@ export default function NavbarAdmin() {
       {open && (
         <div className="md:hidden bg-background-dark border-t border-white/10">
           <nav className="flex flex-col px-4 py-4 space-y-3">
-            <MobileLink icon={<FiHome />} label="Dashboard" />
-            <MobileLink icon={<FiBox />} label="Products" />
-            <MobileLink icon={<FiActivity />} label="Programs" />
-            <MobileLink icon={<FiShoppingCart />} label="Orders" />
+            <MobileLink href="/admin/dashboard" icon={<FiHome />} label="Dashboard" />
+            <MobileLink href="/admin/dashboard/products" icon={<FiBox />} label="Products" />
+            <MobileLink href="/admin/dashboard/programs" icon={<FiActivity />} label="Programs" />
+            <MobileLink href="/orders" icon={<FiShoppingCart />} label="Orders" />
           </nav>
         </div>
       )}
@@ -133,11 +201,27 @@ export default function NavbarAdmin() {
   );
 }
 
-/* Mobile Nav Item */
-function MobileLink({ icon, label }) {
+/* Desktop Link */
+function NavLink({ href, active, children }) {
   return (
     <Link
-      href="#"
+      href={href}
+      className={`text-sm font-bold uppercase tracking-wide transition-colors pb-0.5 ${
+        active
+          ? "text-green-500 border-b-2 border-green-500"
+          : "text-gray-400 hover:text-white"
+      }`}
+    >
+      {children}
+    </Link>
+  );
+}
+
+/* Mobile Link */
+function MobileLink({ href, icon, label }) {
+  return (
+    <Link
+      href={href}
       className="flex items-center gap-3 px-4 py-3 rounded-lg bg-surface-dark border border-white/10 text-gray-300 hover:text-white hover:border-green-500/40 transition"
     >
       {icon}

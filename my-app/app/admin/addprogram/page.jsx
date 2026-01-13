@@ -1,17 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useDebugValue, useState } from 'react';
 import { FiZap, FiArrowLeft } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { addProgramAsync } from '@/app/lib/Redux/programSlice';
+import { addNotification } from '@/app/lib/Redux/NotificationSlice';
 
 export default function AddProgram() {
   const router = useRouter();
   const apiUrl = process.env.NEXT_PUBLIC_API;
   const cloudinaryURL = process.env.NEXT_PUBLIC_CLOUDINARY;
   const Preset = process.env.NEXT_PUBLIC_UPLOAD_PRESET;
-
+  const dispatch = useDispatch();
   
   const [loadingAI, setLoadingAI] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -123,16 +126,16 @@ const handleSubmit = async(e) => {
     try {
       setLoading(true)
         
-        const imageUrl = await uploadToCloudinary(form.image);
-        const res = await axios.post(apiUrl, {
-            ...form,
-            image:imageUrl
-        }
-       );
+      const imageUrl = await uploadToCloudinary(form.image);
+      dispatch(addProgramAsync({...form,image:imageUrl}))
+      dispatch(addNotification({
+        type: "programs",
+        title: "Programs Added",
+        message: `${form.name} added successfully`,
+        type:'new'
+      }))
+       toast.success("Program addes successfully")
 
-       toast.success("AI description generated!")
-
-        console.log('Form is valid, saved:', res.data);
         router.push('/admin/dashboard/programs')
     } catch (error) {
         toast.error('Failed to generate description')

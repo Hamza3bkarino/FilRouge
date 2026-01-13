@@ -6,6 +6,7 @@ import { FiSearch, FiFilter, FiStar, FiEdit, FiTrash2, FiChevronLeft, FiChevronR
 import { useRouter } from "next/navigation";
 import DeleteDataPopUp from "./DeletePopUp";
 import ExportButton from "./Export";
+import { addNotification } from "@/app/lib/Redux/NotificationSlice";
 
 export default function ProgramsTable() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function ProgramsTable() {
   useEffect(() => {
     dispatch(fetchPrograms());
   }, [dispatch]);
+  
 
   // Search filter
   const filteredPrograms = programs.filter(p =>
@@ -41,6 +43,12 @@ export default function ProgramsTable() {
   const handleDelete = (id) => {
     dispatch(deleteProgramAsync(id));
     setShowDeleteModal(false);
+    dispatch(addNotification({
+      type: "program",
+      title: "Program Deleted",
+      message: `${selectedProgram.name} deleted successfully`,
+      type:'deleted'
+    }))
     setSelectedProgram(null);
   };
 
@@ -120,7 +128,11 @@ export default function ProgramsTable() {
                       </span>
                     </div>
                   </td>
-                  <td className="p-4 hidden md:table-cell text-gray-400 line-clamp-2 w-62.5">{program.description}</td>
+                  <td className="p-4 hidden md:table-cell ">
+                    <p className="text-gray-400 line-clamp-2 w-62.5">
+                      {program.description}
+                    </p>
+                  </td>
                   <td className="p-4">
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold uppercase ${program.status==='active'?'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20':'bg-white/5 text-gray-400 border border-white/10'}`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${program.status==='active'?'bg-emerald-500 animate-pulse':'bg-gray-500'}`}></span>

@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { addNotification } from "@/app/lib/Redux/NotificationSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "@/app/lib/Redux/productSlice";
 
 export default function AddProduct() {
   const router = useRouter();
@@ -17,8 +18,7 @@ export default function AddProduct() {
   const [loadingAI, setLoadingAI] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  // const Notification = useSelector((state)=>state.notifications.items);
-  // console.log(Notification);
+
   
   const [form, setForm] = useState({
     name: "",
@@ -109,17 +109,24 @@ It should be 1-2 sentences, persuasive, and focused on benefits.`;
     try {
       const imageUrl = await uploadToCloudinary(form.image);
 
-      await axios.post(apiUrl, {
+      const productData = {
         ...form,
         image: imageUrl,
-      });
+      };
+
+      // ✅ Redux handles API request
+      await dispatch(addProduct(productData)).unwrap();
 
       toast.success("Product added successfully!");
-      dispatch(addNotification({
-        type: "product",
-        title: "Product Added",
-        message: `${form.name} added successfully`
-      }));
+
+      dispatch(
+        addNotification({
+          type: "product",
+          title: "Product Added",
+          message: `${form.name} added successfully`,
+          type:'new'
+        })
+      );
 
       router.push("/admin/dashboard/products");
     } catch (error) {
@@ -128,6 +135,7 @@ It should be 1-2 sentences, persuasive, and focused on benefits.`;
     } finally {
       setLoading(false);
     }
+
   };
 
   /* ------------------ UI ------------------ */

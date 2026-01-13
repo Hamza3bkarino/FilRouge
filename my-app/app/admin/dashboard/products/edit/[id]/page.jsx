@@ -5,6 +5,9 @@ import { FiZap, FiArrowLeft } from "react-icons/fi";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { updateProduct } from "@/app/lib/Redux/productSlice";
+import { addNotification } from "@/app/lib/Redux/NotificationSlice";
 
 export default function EditProduct() {
   const router = useRouter();
@@ -12,7 +15,7 @@ export default function EditProduct() {
   const apiUrl = process.env.NEXT_PUBLIC_API_PRODUCT;
   const cloudinaryURL = process.env.NEXT_PUBLIC_CLOUDINARY;
   const Preset = process.env.NEXT_PUBLIC_UPLOAD_PRESET;
-
+  const dispatch = useDispatch();
   const [loadingAI, setLoadingAI] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -112,9 +115,17 @@ It should be 1-2 sentences, persuasive, and focused on benefits.`;
       if (form.image instanceof File) {
         imageUrl = await uploadToCloudinary(form.image);
       }
+       await dispatch(
+      updateProduct({ id:id, product: { ...form, image: imageUrl } })
+      ).unwrap(); 
 
-      await axios.put(`${apiUrl}${id}`, { ...form, image: imageUrl });
-
+      dispatch(addNotification({
+        type: "product",
+        title: "Product Updated",
+        message: `${form.name} updated successfully`,
+        type:'updated'
+      }))
+      
       toast.success("Product updated successfully!");
       router.push("/admin/dashboard/products");
     } catch (error) {
