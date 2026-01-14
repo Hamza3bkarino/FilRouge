@@ -60,6 +60,7 @@ export default function ProgramsDashboard() {
 
   const levelOptions = {
     responsive: true,
+    maintainAspectRatio:false,
     plugins: {
       legend: { position: 'bottom', labels: { color: '#fff', font: { size: 14 } } },
       title: { display: true, text: 'Programs by Level', color: '#fff', font: { size: 20, weight: 'bold' } },
@@ -175,18 +176,18 @@ export default function ProgramsDashboard() {
     <>
     
       {/* Doughnut Chart: Level */}
-      <div className="min-w-full bg-gray-900 p-6 rounded-3xl shadow-2xl w-full md:w-[60%] mx-auto h-100 flex items-center justify-center">
-        <Chart ref={chartRef} type="doughnut" data={levelData} options={levelOptions} className='' />
+      <div className="min-w-full min-h-60 bg-gray-900 p-6 rounded-3xl shadow-2xl w-full md:w-[60%] mx-auto  flex items-center justify-center">
+        <Chart ref={chartRef} type="doughnut" data={levelData} options={levelOptions}  />
       </div>
-    <div className="min-w-full flex flex-col md:flex-row flex-wrap justify-center gap-8 my-12 px-4">
+    <div className=" min-w-full flex flex-col md:flex-row flex-wrap justify-center gap-8 my-12 px-4">
 
       {/* Mixed Chart: Goal */}
-      <div className="  bg-gray-900 p-6 rounded-3xl shadow-2xl w-full md:min-w-[40%] h-[400px] flex items-center justify-center">
+      <div className="  bg-gray-900 p-6 rounded-3xl shadow-2xl w-full md:min-w-[40%] flex items-center justify-center">
         <Chart ref={chartRef} type="bar" data={goalData} options={{ ...optionsMixed, plugins: { ...optionsMixed.plugins, title: { ...optionsMixed.plugins.title, display: true, text: 'Programs by Goal', color: '#fff', font: { size: 20, weight: 'bold' } } } }} />
       </div>
 
       {/* Mixed Chart: Status */}
-      <div className=" bg-gray-900 p-6 rounded-3xl shadow-2xl w-full md:min-w-[40%] h-[400px] flex items-center justify-center">
+      <div className=" bg-gray-900 p-6 rounded-3xl shadow-2xl w-full md:min-w-[40%] flex items-center justify-center">
         <Chart ref={chartRef} type="bar" data={statusData} options={{ ...optionsMixed, plugins: { ...optionsMixed.plugins, title: { ...optionsMixed.plugins.title, display: true, text: 'Programs by Status', color: '#fff', font: { size: 20, weight: 'bold' } } } }} />
       </div>
     </div>

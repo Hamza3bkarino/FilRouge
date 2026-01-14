@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${lexend.variable} font-display`}>
-        {/* <Navbar /> */}
+        <Navbar />
       <Providers >
         {children}
       </Providers>

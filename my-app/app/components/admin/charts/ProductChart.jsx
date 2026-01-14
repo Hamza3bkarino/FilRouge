@@ -73,7 +73,7 @@ export default function MixedProductChart() {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     animation: {
       duration: 1200,
       easing: 'easeOutQuart',
@@ -114,8 +114,8 @@ export default function MixedProductChart() {
   };
 
   return (
-    <div className="w-full md:w-7xl mx-auto flex justify-center my-12">
-      <div className="min-w-full bg-gray-900 p-6 rounded-3xl shadow-2xl w-full max-w-5xl h-125">
+    <div className="w-full   h-125 md:w-7xl mx-auto flex justify-center my-12">
+      <div className="min-w-full h-125 bg-gray-900 p-6 rounded-3xl shadow-2xl w-full max-w-5xl">
         <Chart ref={chartRef} type="bar" data={data} options={options} />
       </div>
     </div>
