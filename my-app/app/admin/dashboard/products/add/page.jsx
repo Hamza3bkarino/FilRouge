@@ -20,13 +20,17 @@ export default function AddProduct() {
   const [errors, setErrors] = useState({});
 
   
-  const [form, setForm] = useState({
-    name: "",
-    description: "",
-    price: "",
-    stock: "",
-    image: null,
-  });
+ const [form, setForm] = useState({
+  name: "",
+  description: "",
+  price: "",
+  discount_price: "",
+  stock: "",
+  category: "",
+  badge: "",
+  image: null,
+});
+
 
   /* ------------------ Handlers ------------------ */
 
@@ -95,6 +99,11 @@ It should be 1-2 sentences, persuasive, and focused on benefits.`;
       newError.stock = "Stock is required";
       valid = false;
     }
+    if (!form.category) {
+      newError.category = "Category is required";
+      valid = false;
+    }
+
     if (!form.image) {
       newError.image = "Image is required";
       valid = false;
@@ -231,6 +240,60 @@ It should be 1-2 sentences, persuasive, and focused on benefits.`;
             )}
           </div>
         </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Category */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase text-gray-400 mb-1">
+              Category
+            </label>
+            <select
+              name="category"
+              value={form.category}
+              onChange={handleInputChange}
+              className="bg-gray-800 border border-white/10 rounded-lg px-3 py-2 text-gray-400 text-sm focus:ring-emerald-500"
+            >
+              <option value="">Select category</option>
+              <option value="Equipment">Equipment</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Nutrition">Nutrition</option>
+            </select>
+            {errors.category && (
+              <p className="text-red-600 text-[13px]">{errors.category}</p>
+            )}
+          </div>
+
+          {/* Badge */}
+          <div className="flex flex-col">
+            <label className="text-xs font-bold uppercase text-gray-400 mb-1">
+              Badge
+            </label>
+            <select
+              name="badge"
+              value={form.badge}
+              onChange={handleInputChange}
+              className="bg-gray-800 border border-white/10 rounded-lg px-3 py-2 text-gray-400 text-sm focus:ring-emerald-500"
+            >
+              <option value="">None</option>
+              <option value="new">New</option>
+              <option value="hot">Hot</option>
+              <option value="sale">Sale</option>
+            </select>
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <label className="text-xs font-bold uppercase text-gray-400 mb-1">
+            Discount Price (optional)
+          </label>
+          <input
+            type="number"
+            name="discount_price"
+            value={form.discount_price}
+            onChange={handleInputChange}
+            placeholder="Enter discounted price"
+            className="bg-gray-800 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:ring-emerald-500"
+          />
+        </div>
+
 
         {/* Description */}
         <div className="flex flex-col">

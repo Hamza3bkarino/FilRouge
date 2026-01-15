@@ -64,7 +64,6 @@ export default function Dashboard() {
 
   return (
     <>
-      <NavbarAdmin />
 
       {/* Header */}
       <section className="max-w-7xl mx-auto w-full px-4 md:px-6 py-6">

@@ -131,9 +131,9 @@ export default function NavbarAdmin() {
                     <div
                       key={item.id}
                       className={`flex justify-between gap-3 px-4 py-3 border-b border-white/5 transition
-${getNotifColor(item.type)}
-${item.read ? " opacity-50" : ""}
-`}
+                        ${getNotifColor(item.type)}
+                        ${item.read ? " opacity-50" : ""}
+                        `}
 
                       onClick={()=>dispatch(markAsRead(item.id))}
                     >
