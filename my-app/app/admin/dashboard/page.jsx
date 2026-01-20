@@ -184,7 +184,6 @@ export default function Dashboard() {
         </div>
         <ProgramCharts />
       </section>
-      <FooterAdmin/>
     </>
   );
 }

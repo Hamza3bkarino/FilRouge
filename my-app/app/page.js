@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { TrendingGear } from './components/Home/ProductsCard';
 import { ShopByCategoriesAndFeaturedProgram } from './components/Home/CategorieAndProgramSection';
 import { ProgramsSection } from './components/Home/ProgramsCard';
+import Footer from './components/Footer';
 
 const Home = () => {
   return (
@@ -64,6 +65,7 @@ const Home = () => {
         <ShopByCategoriesAndFeaturedProgram/>
 
         <ProgramsSection/>
+
     </>
 
   );

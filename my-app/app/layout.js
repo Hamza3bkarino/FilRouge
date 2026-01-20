@@ -3,6 +3,7 @@ import { Lexend } from 'next/font/google';
 import { Toaster } from "react-hot-toast";
 import Providers from "./providers";
 import Header from "./components/Header";
+import HandleFooter from "./components/HandleFooter";
 
 const lexend = Lexend({
   subsets: ['latin'],
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
         <Providers >
           <Header/>
           {children}
+          <HandleFooter/>
         </Providers>
         <Toaster position="top-right" reverseOrder={false} />
       </body>
