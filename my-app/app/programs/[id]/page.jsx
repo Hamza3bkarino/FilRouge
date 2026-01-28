@@ -131,8 +131,8 @@ export default function ProgramDetails() {
           className="absolute inset-0 w-full h-full bg-cover bg-center bg-fixed bg-black/50"
           style={{ backgroundImage: `url(${program.image})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050b07] via-[#050b07]/80 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050b07] via-[#050b07]/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-[#050b07] via-[#050b07]/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-[#050b07] via-[#050b07]/50 to-transparent"></div>
         <div className="relative z-10 h-full flex flex-col justify-end pb-12 px-6 max-w-7xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <span className="bg-green-500 text-black text-xs font-black uppercase px-3 py-1 rounded">AI Generated Plan</span>
@@ -206,7 +206,7 @@ export default function ProgramDetails() {
               {aiContent.reasons.map((item, i) => (
                 <li key={i} className="flex items-center gap-6 text-gray-300">
                   <FaCheckCircle className="text-green-500 text-7xl" />
-                  <span>{item.reason}</span>
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>

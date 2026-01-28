@@ -3,18 +3,19 @@
 import React, { useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '@/app/lib/Redux/cartProgramSlice';
 
 export default function ProgramCards({programs }) {
 
+  const dispatch = useDispatch();
+  
   
   const router = useRouter();
 
   // ADD TO CART HANDLER
   const handleAddToCart = (program) => {
-    // dispatch({
-    //   type: 'cart/addItem', // change if your cart slice uses another name
-    //   payload: program,
-    // });
+    dispatch(addToCart(program));
   };
 
     // PAGINATION LOGIC
