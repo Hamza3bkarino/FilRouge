@@ -13,15 +13,17 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSelector } from 'react-redux';
-import Sidebar from './Sidebar';
+import Sidebar from './SidebarProgram';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const program = useSelector(state => state.cartProgram.items);
-  const cartCount = program.length;
+  const programs = useSelector(state => state.cartProgram.items);
+  const products = useSelector(state => state.cartProduct.items);
+  const cartCount = programs.length + products.length;
+  
 
   const links = [
     { name: 'HOME', path: '/' },
@@ -163,6 +165,7 @@ const Navbar = () => {
           <Sidebar  onClose={() => setIsSidebarOpen(false)} />
         )
       } 
+
     </>
   );
 };

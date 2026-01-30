@@ -78,7 +78,7 @@ const ProgramCard = ({ program }) => {
 
   return (
     <div className="relative group cursor-pointer">
-      <div className="aspect-[3/4] w-full overflow-hidden rounded-2xl bg-gray-800 relative shadow-lg">
+      <div className="aspect-3/4 w-full overflow-hidden rounded-2xl bg-gray-800 relative shadow-lg">
         {/* Program image */}
         <div
           className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"

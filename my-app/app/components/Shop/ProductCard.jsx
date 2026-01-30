@@ -1,8 +1,16 @@
+import { addToCartProduct } from '@/app/lib/Redux/cartProductSlice';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 export default function ProductCard({items}) {
-    console.log(items);
-    
+     const dispatch = useDispatch();
+  
+  
+
+  // ADD TO CART HANDLER
+  const handleAddToCart = (product) => {
+    dispatch(addToCartProduct(product));
+  };
   return (
     <div className="min-h-screen bg-[#050b07] p-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -98,7 +106,9 @@ export default function ProductCard({items}) {
               </div>
 
               {/* Add to Cart Button */}
-              <button className="mt-auto cursor-pointer w-full py-3 bg-white text-[#102216] font-black uppercase text-sm rounded-lg hover:bg-[#13ec5b] transition-colors flex items-center justify-center gap-2">
+              <button className="mt-auto cursor-pointer w-full py-3 bg-white text-[#102216] font-black uppercase text-sm rounded-lg hover:bg-[#13ec5b] transition-colors flex items-center justify-center gap-2"
+                 onClick={() => handleAddToCart(product)}
+              >
                 Add to Cart 
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />

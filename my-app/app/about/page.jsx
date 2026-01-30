@@ -1,6 +1,5 @@
 "use client";
 
-import Footer from "../components/Footer";
 import { FiFlag, FiEye, FiZap, FiTarget, FiLayers, FiUsers } from "react-icons/fi";
 
 export default function AboutPage() {
@@ -25,7 +24,7 @@ export default function AboutPage() {
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-[0.9]">
             WHERE{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-300">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-green-400 to-emerald-300">
               ATHLETICS
             </span>{" "}
             <br />
@@ -50,7 +49,7 @@ export default function AboutPage() {
               alt="Athlete training"
               className="object-cover w-full h-full opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-50" />
+            <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-50" />
           </div>
           <div className="absolute -bottom-6 -right-6 w-32 h-32 border-b-2 border-r-2 border-green-500/40 rounded-br-3xl z-0" />
         </div>
@@ -123,7 +122,7 @@ export default function AboutPage() {
 
       {/* READY TO TRANSFORM */}
       <section className="max-w-4xl mx-auto px-6 py-24 text-center">
-        <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 rounded-3xl p-12 md:p-16">
+        <div className="bg-linear-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 rounded-3xl p-12 md:p-16">
           <h2 className="text-3xl md:text-5xl font-black uppercase mb-6">
             READY TO TRANSFORM <br />
             <span className="text-green-500">YOUR POTENTIAL?</span>
@@ -138,7 +137,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer />
     </main>
   );
 }

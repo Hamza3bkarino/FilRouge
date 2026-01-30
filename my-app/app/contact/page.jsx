@@ -240,7 +240,6 @@ export default function CotactPage() {
           </div>
         </div>
       </main>
-      <Footer/>
     </>
   );
 }
