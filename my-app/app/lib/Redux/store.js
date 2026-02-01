@@ -4,6 +4,7 @@ import productReducer from "./productSlice";
 import notificationReducer from "./NotificationSlice";
 import CartProgramReducer from './cartProgramSlice';
 import cartProductReducer from './cartProductSlice';
+import wishListReducer from './wishListSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     notifications: notificationReducer,
     cartProgram: CartProgramReducer,
     cartProduct : cartProductReducer,
+    wishList : wishListReducer,
   },
 });
 
