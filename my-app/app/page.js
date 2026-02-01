@@ -2,13 +2,13 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { TrendingGear } from './components/Home/ProductsCard';
 import { ShopByCategoriesAndFeaturedProgram } from './components/Home/CategorieAndProgramSection';
 import { ProgramsSection } from './components/Home/ProgramsCard';
-import Footer from './components/Footer';
+import { useRouter } from 'next/navigation';
 
 const Home = () => {
+  const router = useRouter();
   return (
     <>
       <section className="relative bg-black text-white min-h-screen flex items-center overflow-hidden">
@@ -47,10 +47,12 @@ const Home = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-green-500 hover:bg-green-600 text-black font-bold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 uppercase tracking-wide">
+                <button className="bg-green-500 cursor-pointer hover:bg-green-600 text-black font-bold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 uppercase tracking-wide"
+                  onClick={()=>router.push('/shop')}  
+                >
                   Shop Now
                 </button>
-                <button className="bg-transparent border-2 border-white hover:bg-white hover:text-black text-white font-bold px-8 py-4 rounded-lg transition-all duration-300 uppercase tracking-wide">
+                <button className="bg-transparent cursor-pointer border-2 border-white hover:bg-white hover:text-black text-white font-bold px-8 py-4 rounded-lg transition-all duration-300 uppercase tracking-wide">
                   View Plans
                 </button>
               </div>
