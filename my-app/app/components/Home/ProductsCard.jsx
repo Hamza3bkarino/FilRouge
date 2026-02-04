@@ -1,7 +1,9 @@
 import { fetchProducts } from '@/app/lib/Redux/productSlice';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiEye, FiHeart, FiPlus } from "react-icons/fi";
+import { addToCartProduct } from '@/app/lib/Redux/cartProductSlice';
+import { FaHeart } from "react-icons/fa"; // filled heart
 
 export const TrendingGear = () => {
   const products = useSelector((state) => state.products.items);
@@ -30,10 +32,13 @@ export const TrendingGear = () => {
 
 
 const ProductCard = ({ product }) => {
-
+  
+  const dispatch = useDispatch();
   const discountPercent = product.discount_price
     ? Math.round(((product.price - product.discount_price) / product.price) * 100)
     : null;
+  const [liked, setLiked] = useState(false);
+
 
   return (
     <div className="w-75 group flex flex-col gap-3 p-4 rounded-2xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/5 relative">
@@ -46,9 +51,23 @@ const ProductCard = ({ product }) => {
         )}
 
         {/* Heart icon (top-right) */}
-        <button className="absolute top-3 right-3 z-20 flex size-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm hover:bg-green-400 hover:text-black transition-colors opacity-0 group-hover:opacity-100 duration-300">
-          <FiHeart className="w-5 h-5" />
-        </button>
+        <button
+              className={`absolute top-3 right-3 z-20 flex size-9 items-center justify-center rounded-full 
+                          bg-black/40 text-white backdrop-blur-sm hover:text-black 
+                          transition-colors opacity-0 group-hover:opacity-100 duration-300 cursor-pointer`}
+              onClick={() => {
+                setLiked(!liked);
+                dispatch();
+              }
+              
+              }
+            >
+              {liked ? (
+                <FaHeart className="w-5 h-5 text-red-500 transition-transform duration-200 scale-110" />
+              ) : (
+                <FiHeart className="w-5 h-5 text-white transition-transform duration-200" />
+              )}
+            </button>
 
         {/* Product image */}
         <div
@@ -60,7 +79,7 @@ const ProductCard = ({ product }) => {
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/80 transition-colors duration-300 z-10 rounded-xl" />
 
         {/* Centered View icon */}
-        <button className=" cursor-pointer absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <button className=" cursor-pointer absolute inset-0 z-19 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="w-12 h-12 flex items-center justify-center bg-black/50 rounded-full hover:bg-black/70 transition-colors">
             <FiEye className="w-6 h-6  text-green-400" />
           </div>
@@ -80,7 +99,9 @@ const ProductCard = ({ product }) => {
           </span>
 
           {/* Add button */}
-          <button className="cursor-pointer text-slate-500 dark:text-gray-400 hover:text-green-400 transition-colors flex items-center gap-1 text-xs font-bold uppercase">
+          <button className="cursor-pointer text-slate-500 dark:text-gray-400 hover:text-green-400 transition-colors flex items-center gap-1 text-xs font-bold uppercase"
+            onClick={()=>dispatch(addToCartProduct(product))}
+          >
             Add <FiPlus className="w-5 h-5 " />
           </button>
         </div>
