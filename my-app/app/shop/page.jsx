@@ -19,7 +19,7 @@ export default function Shop(){
     return(
         <>
             <SportAIHeaderSection/>
-            <ProductCard items={items}/>
+            <ProductCard data={items}/>
             
         </>
     )

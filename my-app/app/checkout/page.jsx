@@ -113,7 +113,7 @@ const ProgramCheckoutPage = () => {
                           ? dispatch(decreaseQuantity(item.id))
                           : dispatch(decreaseProductQuantity(item.id))
                       }
-                      className="px-3 py-1 border border-[#1e3a29] text-[#13ec5b]"
+                      className="px-3 py-1 border border-[#1e3a29] text-[#13ec5b] cursor-pointer"
                     >
                       −
                     </button>
@@ -126,7 +126,7 @@ const ProgramCheckoutPage = () => {
                           ? dispatch(increaseQuantity(item.id))
                           : dispatch(increaseProductQuantity(item.id))
                       }
-                      className="px-3 py-1 border border-[#1e3a29] text-[#13ec5b]"
+                      className="px-3 py-1 border border-[#1e3a29] text-[#13ec5b] cursor-pointer"
                     >
                       +
                     </button>
@@ -139,7 +139,7 @@ const ProgramCheckoutPage = () => {
                       ? dispatch(removeFromCart(item.id))
                       : dispatch(removeFromCartProduct(item.id))
                   }
-                  className="text-gray-400 hover:text-red-500"
+                  className="text-gray-400 hover:text-red-500 cursor-pointer"
                 >
                   <FiTrash2 size={18} />
                 </button>
@@ -208,7 +208,7 @@ const ProgramCheckoutPage = () => {
             <button
               onClick={handleCheckout}
               disabled={cartItems.length === 0}
-              className="w-full py-3 bg-[#13ec5b] text-black font-bold hover:bg-[#0fd955] disabled:opacity-50"
+              className="w-full cursor-pointer py-3 bg-[#13ec5b] text-black font-bold hover:bg-[#0fd955] disabled:opacity-50"
             >
               Place Order
             </button>
