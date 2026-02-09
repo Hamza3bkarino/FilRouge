@@ -1,9 +1,93 @@
 "use client";
 
 import { FiMail, FiMapPin, FiArrowRight } from "react-icons/fi";
+import { useState } from "react";
 import Footer from "../components/Footer";
+import axios from "axios";
+import toast from "react-hot-toast";
 
-export default function CotactPage() {
+export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "General Inquiry",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState(""); // ← For success/failure feedback
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  // Validate a single field on blur
+  const handleBlur = (e) => {
+    const { id, value } = e.target;
+    let error = "";
+
+    if (!value.trim()) error = `${id} is required`;
+    else if (id === "email" && !/\S+@\S+\.\S+/.test(value))
+      error = "Invalid email address";
+    else if (id === "message" && value.trim().length < 10)
+      error = "Message must be at least 10 characters";
+
+    setErrors((prev) => ({ ...prev, [id]: error }));
+  };
+
+  // Validate all fields on submit
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
+    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Invalid email address";
+    if (!formData.subject) newErrors.subject = "Subject is required";
+    if (!formData.message.trim()) newErrors.message = "Message is required";
+    else if (formData.message.trim().length < 10) newErrors.message = "Message must be at least 10 characters";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validate()) return;
+
+    try {
+
+      const response = await axios.post(process.env.NEXT_PUBLIC_N8N_URL, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setMessage("✅ Message sent successfully! n8n workflow triggered.");
+      console.log("n8n response:", response.data);
+      toast.success('Email has sent successfully !')
+
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        subject: "General Inquiry",
+        message: "",
+      });
+      setErrors({});
+    } catch (error) {
+      console.error("Error triggering n8n webhook:", error);
+      toast.error(' Failed to send message')
+      setMessage("❌ Failed to send message. Try again later.");
+    }
+  };
+
   return (
     <>
       <main className="max-w-7xl mx-auto w-full px-4 md:px-6 space-y-8 md:space-y-12">
@@ -13,8 +97,7 @@ export default function CotactPage() {
             <div
               className="absolute inset-0 bg-cover bg-center opacity-30"
               style={{
-                backgroundImage:
-                  "url('/bodybuildingImage.jpg')",
+                backgroundImage: "url('/bodybuildingImage.jpg')",
               }}
             ></div>
             <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent"></div>
@@ -41,7 +124,7 @@ export default function CotactPage() {
               <h2 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide flex items-center gap-2">
                 <FiMail className="text-green-200" /> Send us a message
               </h2>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label
@@ -51,12 +134,21 @@ export default function CotactPage() {
                       First Name
                     </label>
                     <input
-                      className="w-full rounded-xl bg-black border border-green-800 text-white focus:border-green-300 focus:ring-green-300 py-3 px-4 placeholder-gray-200"
                       id="firstName"
-                      placeholder="John"
                       type="text"
+                      placeholder="John"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={`w-full rounded-xl bg-black border ${
+                        errors.firstName ? "border-red-500" : "border-green-800"
+                      } text-white focus:border-green-300 focus:ring-green-300 py-3 px-4 placeholder-gray-200`}
                     />
+                    {errors.firstName && (
+                      <p className="text-red-500 text-xs">{errors.firstName}</p>
+                    )}
                   </div>
+
                   <div className="space-y-2">
                     <label
                       className="text-sm font-bold text-gray-100 uppercase tracking-wider"
@@ -65,11 +157,19 @@ export default function CotactPage() {
                       Last Name
                     </label>
                     <input
-                      className="w-full rounded-xl bg-black border border-green-800 text-white focus:border-green-300 focus:ring-green-300 py-3 px-4 placeholder-gray-200"
                       id="lastName"
-                      placeholder="Doe"
                       type="text"
+                      placeholder="Doe"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className={`w-full rounded-xl bg-black border ${
+                        errors.lastName ? "border-red-500" : "border-green-800"
+                      } text-white focus:border-green-300 focus:ring-green-300 py-3 px-4 placeholder-gray-200`}
                     />
+                    {errors.lastName && (
+                      <p className="text-red-500 text-xs">{errors.lastName}</p>
+                    )}
                   </div>
                 </div>
 
@@ -81,11 +181,19 @@ export default function CotactPage() {
                     Email Address
                   </label>
                   <input
-                    className="w-full rounded-xl bg-black border border-green-800 text-white focus:border-green-300 focus:ring-green-300 py-3 px-4 placeholder-gray-200"
                     id="email"
-                    placeholder="john@example.com"
                     type="email"
+                    placeholder="john@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={`w-full rounded-xl bg-black border ${
+                      errors.email ? "border-red-500" : "border-green-800"
+                    } text-white focus:border-green-300 focus:ring-green-300 py-3 px-4 placeholder-gray-200`}
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-xs">{errors.email}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -96,8 +204,13 @@ export default function CotactPage() {
                     Subject
                   </label>
                   <select
-                    className="w-full rounded-xl bg-black border border-green-800 text-white focus:border-green-300 focus:ring-green-300 py-3 px-4"
                     id="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={`w-full rounded-xl bg-black border ${
+                      errors.subject ? "border-red-500" : "border-green-800"
+                    } text-white focus:border-green-300 focus:ring-green-300 py-3 px-4`}
                   >
                     <option>General Inquiry</option>
                     <option>Order Support</option>
@@ -105,6 +218,9 @@ export default function CotactPage() {
                     <option>AI Coaching Feedback</option>
                     <option>Partnership</option>
                   </select>
+                  {errors.subject && (
+                    <p className="text-red-500 text-xs">{errors.subject}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -115,16 +231,24 @@ export default function CotactPage() {
                     Message
                   </label>
                   <textarea
-                    className="w-full rounded-xl bg-black border border-green-800 text-white focus:border-green-300 focus:ring-green-300 py-3 px-4 placeholder-gray-200"
                     id="message"
+                    rows={5}
                     placeholder="How can we help you today?"
-                    rows="5"
+                    value={formData.message}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={`w-full rounded-xl bg-black border ${
+                      errors.message ? "border-red-500" : "border-green-800"
+                    } text-white focus:border-green-300 focus:ring-green-300 py-3 px-4 placeholder-gray-200`}
                   ></textarea>
+                  {errors.message && (
+                    <p className="text-red-500 text-xs">{errors.message}</p>
+                  )}
                 </div>
 
                 <button
+                  type="submit"
                   className="w-full py-4 rounded-xl bg-green-200 text-green-900 font-black uppercase tracking-wider text-base hover:bg-green-300 transition-colors shadow-lg hover:shadow-[0_0_20px_rgba(19,236,91,0.4)]"
-                  type="button"
                 >
                   Send Message
                 </button>
@@ -134,6 +258,7 @@ export default function CotactPage() {
 
           {/* Support & Info */}
           <div className="space-y-8 flex flex-col">
+            {/* 🔥 EXACT CODE YOU PROVIDED */}
             <div className="bg-[#102216] rounded-2xl p-8 border border-green-800 shadow-xl flex flex-col justify-center gap-6">
               <div>
                 <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">
@@ -217,7 +342,7 @@ export default function CotactPage() {
                 style={{
                   backgroundImage:
                     "url('/sportimage.jpg')",
-                    backgroundPosition:"right 60%",
+                  backgroundPosition: "right 60%",
                 }}
               ></div>
               <div className="absolute inset-0 bg-linear-to-r from-green-700 via-green-700/80 to-transparent"></div>
@@ -240,6 +365,7 @@ export default function CotactPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
