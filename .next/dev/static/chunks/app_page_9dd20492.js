@@ -3,7 +3,7 @@
     chunks: [
   "static/chunks/node_modules_next_a62874fb._.js",
   "static/chunks/node_modules_react-icons_fa_index_mjs_0459ff00._.js",
-  "static/chunks/app_154e4b84._.js"
+  "static/chunks/app_f4062d0d._.js"
 ],
     source: "dynamic"
 });

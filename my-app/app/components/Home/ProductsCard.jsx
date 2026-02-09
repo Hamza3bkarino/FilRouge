@@ -7,6 +7,7 @@ import { FaHeart } from "react-icons/fa";
 import { fetchProducts } from '@/app/lib/Redux/productSlice';
 import { addToCartProduct } from '@/app/lib/Redux/cartProductSlice';
 import { toggleWishlist } from '@/app/lib/Redux/wishListSlice';
+import { useRouter } from 'next/navigation';
 
 /* =========================
    TRENDING GEAR COMPONENT
@@ -38,6 +39,7 @@ export const TrendingGear = () => {
    PRODUCT CARD COMPONENT
 ========================= */
 const ProductCard = ({ product }) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const wishlist = useSelector((state) => state.wishList.items);
 
@@ -83,7 +85,9 @@ const ProductCard = ({ product }) => {
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/80 transition-colors duration-300 z-10 rounded-xl" />
 
         {/* Centered View Icon */}
-        <button className="cursor-pointer absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <button className="cursor-pointer absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          onClick={()=>router.push(`shop/${product.id}`)}
+        >
           <div className="w-12 h-12 flex items-center justify-center bg-black/50 rounded-full hover:bg-black/70 transition-colors">
             <FiEye className="w-6 h-6 text-green-400" />
           </div>

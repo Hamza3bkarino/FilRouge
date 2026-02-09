@@ -4,10 +4,13 @@ import { addToCartProduct } from '@/app/lib/Redux/cartProductSlice';
 import { toggleWishlist } from '@/app/lib/Redux/wishListSlice';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FiEye } from "react-icons/fi";
+import { useRouter } from "next/navigation";
+
 
 export default function ProductCard({ data = []}) {
   const dispatch = useDispatch();
-
+  const router = useRouter();
   const wishlistItems = useSelector((state) => state.wishList.items);
 
   const isInWishlist = (id) =>
@@ -20,6 +23,11 @@ export default function ProductCard({ data = []}) {
   const handleToggleWishlist = (product) => {
     dispatch(toggleWishlist(product));
   };
+
+  const handleViewProduct = (id) => {
+  router.push(`/shop/${id}`);
+};
+
 
   return (
     <div className="min-h-screen bg-[#050b07] p-8">
@@ -35,10 +43,10 @@ export default function ProductCard({ data = []}) {
               {/* IMAGE */}
               <div className="relative aspect-4/3 overflow-hidden bg-gray-800">
                 
-                {/* ❤️ WISHLIST BUTTON */}
+                {/*  WISHLIST BUTTON */}
                 <button
                   onClick={() => handleToggleWishlist(product)}
-                  className={`absolute top-3 right-3 z-10 p-2 rounded-full backdrop-blur-md transition
+                  className={`absolute cursor-pointer top-3 right-3 z-10 p-2 rounded-full backdrop-blur-md transition
                     ${liked
                       ? 'bg-white text-red-600'
                       : 'bg-black/40 text-white hover:bg-white hover:text-black'
@@ -59,6 +67,15 @@ export default function ProductCard({ data = []}) {
                     />
                   </svg>
                 </button>
+                
+                {/* VIEW BUTTON */}
+                <button
+                  onClick={() => handleViewProduct(product.id)}
+                  className="absolute cursor-pointer top-3 left-3 z-10 p-2 rounded-full bg-black/40 text-white backdrop-blur-md hover:bg-white hover:text-black transition"
+                >
+                  <FiEye className="w-4 h-4" />
+                </button>
+
 
                 <div
                   className="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform duration-700"
@@ -75,6 +92,18 @@ export default function ProductCard({ data = []}) {
                 <span className="text-lg font-bold text-[#13ec5b]">
                   ${product.price}
                 </span>
+                <div className="bg-white/5 rounded-lg p-3 border-l-2 border-[#13ec5b]/60">
+                  <div className="flex items-center gap-1 mb-1">
+                    <span className="text-[10px] font-bold text-[#13ec5b] uppercase tracking-wide">
+                      AI Analysis
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-gray-300 leading-relaxed line-clamp-2">
+                    {product.description}
+                  </p>
+                </div>
+
 
                 {/* ADD TO CART */}
                 <button
