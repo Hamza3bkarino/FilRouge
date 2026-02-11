@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 export const ShopByCategoriesAndFeaturedProgram = () => {
@@ -29,7 +30,7 @@ export const ShopByCategoriesAndFeaturedProgram = () => {
         <h2 className="pb-6 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
           Shop by Categories
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 flex-grow">
+        <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 grow">
           {categories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}
@@ -50,8 +51,12 @@ export const ShopByCategoriesAndFeaturedProgram = () => {
 };
 
 const CategoryCard = ({ category }) => {
+  const router = useRouter();
+
   return (
-    <div className="group relative flex h-24 lg:h-auto lg:flex-1 overflow-hidden rounded-xl bg-gray-800 cursor-pointer">
+    <div className="group relative flex h-24 lg:h-auto lg:flex-1 overflow-hidden rounded-xl bg-gray-800 cursor-pointer"
+      onClick={()=>router.push(`/shop?category=${category.name}`)}
+    >
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-60 transition-all duration-500 group-hover:opacity-40 group-hover:scale-105"
         style={{ backgroundImage: `url(${category.image})` }}
@@ -73,7 +78,7 @@ const CategoryCard = ({ category }) => {
 
 const FeaturedProgram = () => {
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-gray-800 border border-white/5 h-[400px] lg:h-[500px] group shadow-2xl">
+    <div className="relative overflow-hidden rounded-3xl bg-gray-800 border border-white/5 h-100 lg:h-125 group shadow-2xl">
       <div 
         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
         style={{ 
@@ -81,7 +86,7 @@ const FeaturedProgram = () => {
           backgroundPosition: 'center'
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent"></div>
+      <div className="absolute inset-0 bg-linear-to-r from-gray-900 via-gray-900/70 to-transparent"></div>
       
       <div className="relative z-10 flex flex-col justify-center h-full p-10 lg:p-14 max-w-lg">
         <div className="mb-4 flex items-center gap-3">

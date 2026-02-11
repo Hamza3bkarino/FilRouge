@@ -1004,7 +1004,7 @@
     flex: 1;
   }
 
-  .flex-grow {
+  .flex-grow, .grow {
     flex-grow: 1;
   }
 
@@ -3600,6 +3600,12 @@
   @media (min-width: 64rem) {
     .lg\:col-span-8 {
       grid-column: span 8 / span 8;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .lg\:h-125 {
+      height: calc(var(--spacing) * 125);
     }
   }
 
