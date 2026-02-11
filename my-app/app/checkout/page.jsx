@@ -17,8 +17,12 @@ import {
 } from '../lib/Redux/cartProductSlice';
 
 import { FiTrash2 } from 'react-icons/fi';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const ProgramCheckoutPage = () => {
+
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const programItems = useSelector((state) => state.cartProgram.items);
@@ -66,15 +70,37 @@ const ProgramCheckoutPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!validateForm()) return;
+    if (cartItems.length === 0) return;
 
-    alert('Order placed successfully');
+    setLoading(true);
 
-    dispatch(clearCart());
-    dispatch(clearCartProducts());
+    try {
+      const n8nUrl = process.env.NEXT_PUBLIC_N8N_URL_CHECKOUT;
+
+      // 🔥 Axios POST request
+      await axios.post(n8nUrl, {
+        customer: form,
+        cart: cartItems,
+        total: totalPrice,
+      });
+
+      toast.success('Order placed successfully!');
+
+      // Clear carts
+      dispatch(clearCart());
+      dispatch(clearCartProducts());
+
+      // Reset form
+      setForm({ fullName: '', email: '', address: '' });
+    } catch (err) {
+      console.error(err);
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
-
   return (
     <div className="min-h-screen bg-[#0b0f0d] text-white">
       <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-2 gap-14">
@@ -210,7 +236,7 @@ const ProgramCheckoutPage = () => {
               disabled={cartItems.length === 0}
               className="w-full cursor-pointer py-3 bg-[#13ec5b] text-black font-bold hover:bg-[#0fd955] disabled:opacity-50"
             >
-              Place Order
+              {loading ? 'Processing...' : 'Place Order'}
             </button>
           </div>
         </div>

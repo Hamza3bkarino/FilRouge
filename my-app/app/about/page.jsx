@@ -131,7 +131,7 @@ export default function AboutPage() {
             Join thousands of athletes who've upgraded from guesswork to precision.
             Start your journey with SportAI today.
           </p>
-          <button className="bg-green-500 hover:bg-green-400 text-black font-bold px-8 py-4 rounded-full uppercase tracking-wider transition-all transform hover:scale-105 shadow-lg shadow-green-500/20">
+          <button className="bg-green-500 hover:bg-green-400 cursor-pointer text-black font-bold px-8 py-4 rounded-full uppercase tracking-wider transition-all transform hover:scale-105 shadow-lg shadow-green-500/20">
             Get Started Free
           </button>
         </div>

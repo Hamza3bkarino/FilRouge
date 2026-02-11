@@ -119,7 +119,7 @@ export default function ProgramsPage() {
                 <div className="relative">
                 <button
                     onClick={() => setOpen(open === 'level' ? null : 'level')}
-                    className="px-4 py-2 rounded-lg bg-[#102216] border border-white/10 text-gray-300 text-sm font-bold uppercase flex items-center gap-2"
+                    className="px-4 py-2 rounded-lg bg-[#102216] border border-[#13ec5b]/40 text-[#13ec5b] text-sm font-bold uppercase flex items-center gap-2"
                 >
                     Level: {level}
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -146,7 +146,7 @@ export default function ProgramsPage() {
                 <div className="relative">
                 <button
                     onClick={() => setOpen(open === 'duration' ? null : 'duration')}
-                    className="px-4 py-2 rounded-lg bg-[#102216] border border-white/10 text-gray-300 text-sm font-bold uppercase flex items-center gap-2"
+                    className="px-4 py-2 rounded-lg bg-[#102216] border border-[#13ec5b]/40 text-[#13ec5b] text-sm font-bold uppercase flex items-center gap-2"
                 >
                     Duration
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

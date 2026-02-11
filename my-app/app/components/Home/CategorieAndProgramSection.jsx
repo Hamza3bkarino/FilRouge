@@ -77,6 +77,9 @@ const CategoryCard = ({ category }) => {
 };
 
 const FeaturedProgram = () => {
+
+  const router = useRouter();
+
   return (
     <div className="relative overflow-hidden rounded-3xl bg-gray-800 border border-white/5 h-100 lg:h-125 group shadow-2xl">
       <div 
@@ -122,10 +125,14 @@ const FeaturedProgram = () => {
           </div>
           
           <div className="flex items-center gap-4 mt-2">
-            <button className="flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold uppercase text-black hover:bg-gray-200 transition-colors shadow-lg">
+            <button className="flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold uppercase text-black hover:bg-gray-200 transition-colors shadow-lg cursor-pointer"
+              onClick={()=>router.push('programs')}
+            >
               Start Now
             </button>
-            <button className="flex items-center gap-2 rounded-xl border border-white/20 px-8 py-4 text-sm font-bold uppercase text-white hover:bg-white/10 transition-colors backdrop-blur-md">
+            <button className="flex items-center gap-2 rounded-xl border border-white/20 px-8 py-4 text-sm font-bold uppercase text-white cursor-pointer hover:bg-white/10 transition-colors backdrop-blur-md"
+              onClick={()=>router.push('programs')}
+            >
               Preview
             </button>
           </div>

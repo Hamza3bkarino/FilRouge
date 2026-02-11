@@ -12,7 +12,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 ;
-var _s = __turbopack_context__.k.signature();
+var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
 ;
 ;
 const ShopByCategoriesAndFeaturedProgram = ()=>{
@@ -175,6 +175,8 @@ _s(CategoryCard, "fN7XvhJ+p5oE6+Xlo0NJmXpxjC8=", false, function() {
 });
 _c1 = CategoryCard;
 const FeaturedProgram = ()=>{
+    _s1();
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative overflow-hidden rounded-3xl bg-gray-800 border border-white/5 h-100 lg:h-125 group shadow-2xl",
         children: [
@@ -186,14 +188,14 @@ const FeaturedProgram = ()=>{
                 }
             }, void 0, false, {
                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                lineNumber: 82,
+                lineNumber: 85,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 bg-linear-to-r from-gray-900 via-gray-900/70 to-transparent"
             }, void 0, false, {
                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                lineNumber: 89,
+                lineNumber: 92,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -207,7 +209,7 @@ const FeaturedProgram = ()=>{
                                 children: "Pro Plan"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                lineNumber: 93,
+                                lineNumber: 96,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -215,13 +217,13 @@ const FeaturedProgram = ()=>{
                                 children: "4 Weeks Duration"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                lineNumber: 96,
+                                lineNumber: 99,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                        lineNumber: 92,
+                        lineNumber: 95,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -230,7 +232,7 @@ const FeaturedProgram = ()=>{
                             "30-Day Shred",
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                lineNumber: 102,
+                                lineNumber: 105,
                                 columnNumber: 23
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -238,13 +240,13 @@ const FeaturedProgram = ()=>{
                                 children: "Challenge"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                lineNumber: 103,
+                                lineNumber: 106,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                        lineNumber: 101,
+                        lineNumber: 104,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -252,7 +254,7 @@ const FeaturedProgram = ()=>{
                         children: "High intensity interval training designed by our proprietary AI engine to shock your muscles into growth."
                     }, void 0, false, {
                         fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                        lineNumber: 106,
+                        lineNumber: 109,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -266,7 +268,7 @@ const FeaturedProgram = ()=>{
                                         children: "Program Intensity"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                        lineNumber: 112,
+                                        lineNumber: 115,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -276,93 +278,100 @@ const FeaturedProgram = ()=>{
                                                 className: "h-2 w-8 rounded-full bg-green-400"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                                lineNumber: 116,
-                                                columnNumber: 15
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "h-2 w-8 rounded-full bg-green-400"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                                lineNumber: 117,
-                                                columnNumber: 15
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "h-2 w-8 rounded-full bg-green-400"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                                lineNumber: 118,
-                                                columnNumber: 15
-                                            }, ("TURBOPACK compile-time value", void 0)),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "h-2 w-8 rounded-full bg-white/20"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
                                                 lineNumber: 119,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "h-2 w-8 rounded-full bg-white/20"
+                                                className: "h-2 w-8 rounded-full bg-green-400"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
                                                 lineNumber: 120,
+                                                columnNumber: 15
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "h-2 w-8 rounded-full bg-green-400"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
+                                                lineNumber: 121,
+                                                columnNumber: 15
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "h-2 w-8 rounded-full bg-white/20"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
+                                                lineNumber: 122,
+                                                columnNumber: 15
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "h-2 w-8 rounded-full bg-white/20"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
+                                                lineNumber: 123,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                        lineNumber: 115,
+                                        lineNumber: 118,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                lineNumber: 111,
+                                lineNumber: 114,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex items-center gap-4 mt-2",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold uppercase text-black hover:bg-gray-200 transition-colors shadow-lg",
+                                        className: "flex items-center gap-2 rounded-xl bg-white px-8 py-4 text-sm font-bold uppercase text-black hover:bg-gray-200 transition-colors shadow-lg cursor-pointer",
+                                        onClick: ()=>router.push('programs'),
                                         children: "Start Now"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                        lineNumber: 125,
+                                        lineNumber: 128,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "flex items-center gap-2 rounded-xl border border-white/20 px-8 py-4 text-sm font-bold uppercase text-white hover:bg-white/10 transition-colors backdrop-blur-md",
+                                        className: "flex items-center gap-2 rounded-xl border border-white/20 px-8 py-4 text-sm font-bold uppercase text-white cursor-pointer hover:bg-white/10 transition-colors backdrop-blur-md",
+                                        onClick: ()=>router.push('programs'),
                                         children: "Preview"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                        lineNumber: 128,
+                                        lineNumber: 133,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                                lineNumber: 124,
+                                lineNumber: 127,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                        lineNumber: 110,
+                        lineNumber: 113,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                lineNumber: 91,
+                lineNumber: 94,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-        lineNumber: 81,
+        lineNumber: 84,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
+_s1(FeaturedProgram, "fN7XvhJ+p5oE6+Xlo0NJmXpxjC8=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+    ];
+});
 _c2 = FeaturedProgram;
 function App() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -371,17 +380,17 @@ function App() {
             className: "max-w-7xl mx-auto",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ShopByCategoriesAndFeaturedProgram, {}, void 0, false, {
                 fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-                lineNumber: 143,
+                lineNumber: 150,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-            lineNumber: 142,
+            lineNumber: 149,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/components/Home/CategorieAndProgramSection.jsx",
-        lineNumber: 141,
+        lineNumber: 148,
         columnNumber: 5
     }, this);
 }
