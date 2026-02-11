@@ -1,9 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+/* ---------- helpers (SSR safe) ---------- */
+const loadCart = () => {
+  if (typeof window === "undefined") return [];
+  try {
+    const data = localStorage.getItem("cart");
+    return data ? JSON.parse(data) : [];
+  } catch (err) {
+    console.error("Cart load error", err);
+    return [];
+  }
+};
+
+const saveCart = (items) => {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem("cart", JSON.stringify(items));
+  } catch (err) {
+    console.error("Cart save error", err);
+  }
+};
+
+/* ---------- slice ---------- */
 const CartProgram = createSlice({
   name: "cart-program",
   initialState: {
-    items: [],
+    items: loadCart(),
   },
   reducers: {
     addToCart: (state, action) => {
@@ -15,18 +37,19 @@ const CartProgram = createSlice({
       } else {
         state.items.push({ ...product, quantity: 1 });
       }
+
+      saveCart(state.items);
     },
 
     removeFromCart: (state, action) => {
       state.items = state.items.filter((p) => p.id !== action.payload);
+      saveCart(state.items);
     },
 
     increaseQuantity: (state, action) => {
-      // action.payload = id of the item
       const item = state.items.find((p) => p.id === action.payload);
-      if (item) {
-        item.quantity += 1;
-      }
+      if (item) item.quantity += 1;
+      saveCart(state.items);
     },
 
     decreaseQuantity: (state, action) => {
@@ -38,10 +61,12 @@ const CartProgram = createSlice({
           state.items = state.items.filter((p) => p.id !== action.payload);
         }
       }
+      saveCart(state.items);
     },
 
     clearCart: (state) => {
       state.items = [];
+      saveCart(state.items);
     },
   },
 });

@@ -392,59 +392,33 @@ __turbopack_context__.s([
     ()=>ProgramsSection
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$cartProgramSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/lib/Redux/cartProgramSlice.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$programSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/lib/Redux/programSlice.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fi$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-icons/fi/index.mjs [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-redux/dist/react-redux.mjs [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
+;
+;
+;
 ;
 ;
 ;
 const ProgramsSection = ()=>{
-    const programs = [
-        {
-            id: 1,
-            name: "Herman Ritchie",
-            level: "Advanced",
-            goal: "Strength",
-            duration: "2 weeks",
-            price: "686",
-            image: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/73.jpg"
-        },
-        {
-            id: 2,
-            name: "Muscle Builder",
-            level: "Intermediate",
-            goal: "Muscle Gain",
-            duration: "4 weeks",
-            price: "499",
-            image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&h=800&fit=crop"
-        },
-        {
-            id: 3,
-            name: "Cardio Blast",
-            level: "Beginner",
-            goal: "Endurance",
-            duration: "3 weeks",
-            price: "299",
-            image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&h=800&fit=crop"
-        },
-        {
-            id: 4,
-            name: "Yoga Flow",
-            level: "All Levels",
-            goal: "Flexibility",
-            duration: "2 weeks",
-            price: "349",
-            image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=800&fit=crop"
-        },
-        {
-            id: 5,
-            name: "Core Strength",
-            level: "Advanced",
-            goal: "Core Training",
-            duration: "3 weeks",
-            price: "549",
-            image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=800&fit=crop"
+    _s();
+    const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "ProgramsSection.useEffect": ()=>{
+            dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$programSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["fetchPrograms"])());
         }
-    ];
+    }["ProgramsSection.useEffect"], [
+        dispatch
+    ]);
+    const programs = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"])({
+        "ProgramsSection.programs.useSelector": (state)=>state.programs.items
+    }["ProgramsSection.programs.useSelector"]).slice(0, 5);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "max-w-7xl mx-auto my-12",
         children: [
@@ -456,7 +430,7 @@ const ProgramsSection = ()=>{
                         children: "Active Programs"
                     }, void 0, false, {
                         fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                        lineNumber: 56,
+                        lineNumber: 22,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -465,13 +439,13 @@ const ProgramsSection = ()=>{
                         children: "View All Programs"
                     }, void 0, false, {
                         fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                        lineNumber: 59,
+                        lineNumber: 25,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                lineNumber: 55,
+                lineNumber: 21,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -480,23 +454,32 @@ const ProgramsSection = ()=>{
                         program: program
                     }, program.id, false, {
                         fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                        lineNumber: 69,
+                        lineNumber: 35,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)))
             }, void 0, false, {
                 fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                lineNumber: 67,
+                lineNumber: 33,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-        lineNumber: 54,
+        lineNumber: 20,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
+_s(ProgramsSection, "7K48bEdCs9ExWEWnKCoZI8Lr3a4=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSelector"]
+    ];
+});
 _c = ProgramsSection;
 const ProgramCard = ({ program })=>{
+    _s1();
+    const dispatch = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"])();
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const price = Number(program.price).toFixed(2);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative group cursor-pointer",
@@ -510,7 +493,7 @@ const ProgramCard = ({ program })=>{
                     }
                 }, void 0, false, {
                     fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                    lineNumber: 83,
+                    lineNumber: 51,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -518,7 +501,7 @@ const ProgramCard = ({ program })=>{
                     children: program.level
                 }, void 0, false, {
                     fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                    lineNumber: 89,
+                    lineNumber: 57,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -526,28 +509,29 @@ const ProgramCard = ({ program })=>{
                     children: program.goal
                 }, void 0, false, {
                     fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                    lineNumber: 92,
+                    lineNumber: 60,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 rounded-2xl flex items-center justify-center",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        className: "p-3 bg-black/70 rounded-full hover:bg-black/90 transition-colors opacity-0 group-hover:opacity-100",
+                        className: "p-3 bg-black/70 rounded-full hover:bg-black/90 transition-colors opacity-0 group-hover:opacity-100 cursor-pointer",
+                        onClick: ()=>router.push(`/programs/${program.id}`),
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fi$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FiEye"], {
                             className: "w-6 h-6 text-white"
                         }, void 0, false, {
                             fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                            lineNumber: 99,
+                            lineNumber: 69,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                        lineNumber: 98,
+                        lineNumber: 66,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                    lineNumber: 97,
+                    lineNumber: 65,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -560,7 +544,7 @@ const ProgramCard = ({ program })=>{
                                 children: program.name
                             }, void 0, false, {
                                 fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                                lineNumber: 106,
+                                lineNumber: 76,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -574,52 +558,59 @@ const ProgramCard = ({ program })=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                                        lineNumber: 108,
+                                        lineNumber: 78,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "bg-white text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-green-400",
+                                        className: "bg-white text-black p-2 cursor-pointer rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-green-400",
+                                        onClick: ()=>dispatch((0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$Redux$2f$cartProgramSlice$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["addToCart"])(program)),
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fi$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FiShoppingCart"], {
                                             className: "w-4 h-4"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                                            lineNumber: 110,
+                                            lineNumber: 82,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                                        lineNumber: 109,
+                                        lineNumber: 79,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                                lineNumber: 107,
+                                lineNumber: 77,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                        lineNumber: 105,
+                        lineNumber: 75,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-                    lineNumber: 104,
+                    lineNumber: 74,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-            lineNumber: 81,
+            lineNumber: 49,
             columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/app/components/Home/ProgramsCard.jsx",
-        lineNumber: 80,
+        lineNumber: 48,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
+_s1(ProgramCard, "cnCgJZqboYHCQPt1X4vRgM1/GGo=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$redux$2f$dist$2f$react$2d$redux$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useDispatch"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+    ];
+});
 _c1 = ProgramCard;
 var _c, _c1;
 __turbopack_context__.k.register(_c, "ProgramsSection");

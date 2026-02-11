@@ -1,54 +1,20 @@
-import React from "react";
+import { addToCart } from "@/app/lib/Redux/cartProgramSlice";
+import { fetchPrograms } from "@/app/lib/Redux/programSlice";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 import { FiShoppingCart, FiEye } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
 
 export const ProgramsSection = () => {
-  const programs = [
-    {
-      id: 1,
-      name: "Herman Ritchie",
-      level: "Advanced",
-      goal: "Strength",
-      duration: "2 weeks",
-      price: "686",
-      image: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/73.jpg",
-    },
-    {
-      id: 2,
-      name: "Muscle Builder",
-      level: "Intermediate",
-      goal: "Muscle Gain",
-      duration: "4 weeks",
-      price: "499",
-      image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=600&h=800&fit=crop",
-    },
-    {
-      id: 3,
-      name: "Cardio Blast",
-      level: "Beginner",
-      goal: "Endurance",
-      duration: "3 weeks",
-      price: "299",
-      image: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&h=800&fit=crop",
-    },
-    {
-      id: 4,
-      name: "Yoga Flow",
-      level: "All Levels",
-      goal: "Flexibility",
-      duration: "2 weeks",
-      price: "349",
-      image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=800&fit=crop",
-    },
-    {
-      id: 5,
-      name: "Core Strength",
-      level: "Advanced",
-      goal: "Core Training",
-      duration: "3 weeks",
-      price: "549",
-      image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=800&fit=crop",
-    },
-  ];
+
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(fetchPrograms())
+  },[dispatch])
+
+  const programs = useSelector(state=>state.programs.items).slice(0,5)
+  
+
 
   return (
     <div className="max-w-7xl mx-auto my-12">
@@ -74,6 +40,8 @@ export const ProgramsSection = () => {
 };
 
 const ProgramCard = ({ program }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const price = Number(program.price).toFixed(2);
 
   return (
@@ -95,7 +63,9 @@ const ProgramCard = ({ program }) => {
 
         {/* Hover overlay with centered View icon */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 rounded-2xl flex items-center justify-center">
-          <button className="p-3 bg-black/70 rounded-full hover:bg-black/90 transition-colors opacity-0 group-hover:opacity-100">
+          <button className="p-3 bg-black/70 rounded-full hover:bg-black/90 transition-colors opacity-0 group-hover:opacity-100 cursor-pointer"
+            onClick={()=>router.push(`/programs/${program.id}`)}
+          >
             <FiEye className="w-6 h-6 text-white" />
           </button>
         </div>
@@ -106,7 +76,9 @@ const ProgramCard = ({ program }) => {
             <p className="text-lg font-bold text-white truncate">{program.name}</p>
             <div className="flex items-center justify-between mt-2">
               <p className="text-green-400 font-bold">${price}</p>
-              <button className="bg-white text-black p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-green-400">
+              <button className="bg-white text-black p-2 cursor-pointer rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-green-400"
+                onClick={()=>dispatch(addToCart(program))}
+              >
                 <FiShoppingCart className="w-4 h-4" />
               </button>
             </div>

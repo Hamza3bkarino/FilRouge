@@ -248,10 +248,30 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-client] (ecmascript) <locals>");
 ;
-const CartProgram = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
+/* ---------- helpers (SSR safe) ---------- */ const loadCart = ()=>{
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    try {
+        const data = localStorage.getItem("cart");
+        return data ? JSON.parse(data) : [];
+    } catch (err) {
+        console.error("Cart load error", err);
+        return [];
+    }
+};
+const saveCart = (items)=>{
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    try {
+        localStorage.setItem("cart", JSON.stringify(items));
+    } catch (err) {
+        console.error("Cart save error", err);
+    }
+};
+/* ---------- slice ---------- */ const CartProgram = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
     name: "cart-program",
     initialState: {
-        items: []
+        items: loadCart()
     },
     reducers: {
         addToCart: (state, action)=>{
@@ -265,16 +285,16 @@ const CartProgram = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                     quantity: 1
                 });
             }
+            saveCart(state.items);
         },
         removeFromCart: (state, action)=>{
             state.items = state.items.filter((p)=>p.id !== action.payload);
+            saveCart(state.items);
         },
         increaseQuantity: (state, action)=>{
-            // action.payload = id of the item
             const item = state.items.find((p)=>p.id === action.payload);
-            if (item) {
-                item.quantity += 1;
-            }
+            if (item) item.quantity += 1;
+            saveCart(state.items);
         },
         decreaseQuantity: (state, action)=>{
             const item = state.items.find((p)=>p.id === action.payload);
@@ -285,9 +305,11 @@ const CartProgram = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                     state.items = state.items.filter((p)=>p.id !== action.payload);
                 }
             }
+            saveCart(state.items);
         },
         clearCart: (state)=>{
             state.items = [];
+            saveCart(state.items);
         }
     }
 });
@@ -316,10 +338,30 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-client] (ecmascript) <locals>");
 ;
-const cartProduct = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
+/* ---------- helpers (SSR safe) ---------- */ const loadCartProduct = ()=>{
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    try {
+        const data = localStorage.getItem("cartProduct");
+        return data ? JSON.parse(data) : [];
+    } catch (err) {
+        console.error("Cart load error", err);
+        return [];
+    }
+};
+const saveCartProduct = (items)=>{
+    if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+    ;
+    try {
+        localStorage.setItem("cartProduct", JSON.stringify(items));
+    } catch (err) {
+        console.error("Cart save error", err);
+    }
+};
+/* ---------- slice ---------- */ const cartProduct = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
     name: "cart-product",
     initialState: {
-        items: []
+        items: loadCartProduct()
     },
     reducers: {
         addToCartProduct: (state, action)=>{
@@ -333,15 +375,16 @@ const cartProduct = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                     quantity: 1
                 });
             }
+            saveCartProduct(state.items);
         },
         removeFromCartProduct: (state, action)=>{
             state.items = state.items.filter((p)=>p.id !== action.payload);
+            saveCartProduct(state.items);
         },
         increaseProductQuantity: (state, action)=>{
             const item = state.items.find((p)=>p.id === action.payload);
-            if (item) {
-                item.quantity += 1;
-            }
+            if (item) item.quantity += 1;
+            saveCartProduct(state.items);
         },
         decreaseProductQuantity: (state, action)=>{
             const item = state.items.find((p)=>p.id === action.payload);
@@ -352,9 +395,11 @@ const cartProduct = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
                     state.items = state.items.filter((p)=>p.id !== action.payload);
                 }
             }
+            saveCartProduct(state.items);
         },
         clearCartProducts: (state)=>{
             state.items = [];
+            saveCartProduct(state.items);
         }
     }
 });
