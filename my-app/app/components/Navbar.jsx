@@ -27,6 +27,8 @@ const Navbar = () => {
   const wishlist = useSelector((state) => state.wishList.items);
 
   const cartCount = programs.length + products.length;
+  console.log(cartCount);
+  
   const wishlistCount = wishlist.length;
 
   const links = [

@@ -1,9 +1,8 @@
-'use client';
-
 import React from 'react';
 import { FiX, FiTrash2 } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // PROGRAM CART
 import {
@@ -28,29 +27,40 @@ const Sidebar = ({ onClose }) => {
   const cartPrograms = useSelector((state) => state.cartProgram.items);
   const cartProducts = useSelector((state) => state.cartProduct.items);
 
-  // 🔥 Merge programs + products
   const allCartItems = [
     ...cartPrograms.map((item) => ({ ...item, type: 'program' })),
     ...cartProducts.map((item) => ({ ...item, type: 'product' })),
   ];
 
-  // 💰 Total price
   const totalPrice = allCartItems.reduce(
     (total, item) => total + (item.price || 0) * item.quantity,
     0
   );
 
   return (
-    <>
+    <AnimatePresence>
       {/* Overlay */}
-      <div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 cursor-pointer"
-        onClick={onClose}
-      />
+      {allCartItems.length >= 0 && (
+        <motion.div
+          key="overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 bg-black backdrop-blur-sm z-50 cursor-pointer"
+          onClick={onClose}
+        />
+      )}
 
       {/* Sidebar */}
-      <div className="fixed top-0 right-0 h-screen w-80 bg-white/95 backdrop-blur-lg z-50 shadow-2xl flex flex-col">
-        
+      <motion.div
+        key="sidebar"
+        initial={{ x: '100%' }}
+        animate={{ x: 0 }}
+        exit={{ x: '100%' }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className="fixed top-0 right-0 h-screen w-80 bg-white/95 backdrop-blur-lg z-50 shadow-2xl flex flex-col"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-gray-300">
           <h2 className="text-xl font-bold text-gray-800">
@@ -73,11 +83,14 @@ const Sidebar = ({ onClose }) => {
           )}
 
           {allCartItems.map((item) => (
-            <div
+            <motion.div
               key={`${item.type}-${item.id}`}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 50 }}
+              transition={{ duration: 0.2 }}
               className="flex items-center gap-3 bg-white rounded-xl shadow p-3"
             >
-              {/* Image */}
               {item.image && (
                 <img
                   src={item.image}
@@ -86,14 +99,12 @@ const Sidebar = ({ onClose }) => {
                 />
               )}
 
-              {/* Info */}
               <div className="flex-1">
                 <p className="font-semibold text-gray-800">{item.name}</p>
                 <p className="text-sm text-gray-600">
                   ${item.price} × {item.quantity}
                 </p>
 
-                {/* Quantity */}
                 <div className="flex items-center gap-2 mt-2">
                   <button
                     onClick={() =>
@@ -121,7 +132,6 @@ const Sidebar = ({ onClose }) => {
                 </div>
               </div>
 
-              {/* Remove */}
               <button
                 onClick={() =>
                   item.type === 'program'
@@ -132,7 +142,7 @@ const Sidebar = ({ onClose }) => {
               >
                 <FiTrash2 size={20} />
               </button>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -165,8 +175,8 @@ const Sidebar = ({ onClose }) => {
             </button>
           </div>
         )}
-      </div>
-    </>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
