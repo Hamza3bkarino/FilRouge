@@ -101,7 +101,7 @@ const Navbar = () => {
               </div>
 
               {/* User */}
-              <FiUser className="nav-icon cursor-pointer" />
+              <FiUser className="nav-icon cursor-pointer" onClick={()=>router.push('/admin/login')}/>
             </div>
 
             {/* Mobile Buttons */}
@@ -158,7 +158,7 @@ const Navbar = () => {
                     )}
                   </div>
 
-                  <FiUser className="nav-icon cursor-pointer" />
+                  <FiUser className="nav-icon cursor-pointer" onClick={()=>router.push('/admin/login')}/>
                 </div>
               </div>
             </div>

@@ -525,6 +525,10 @@
     top: calc(var(--spacing) * 4);
   }
 
+  .top-10 {
+    top: calc(var(--spacing) * 10);
+  }
+
   .top-12 {
     top: calc(var(--spacing) * 12);
   }
@@ -541,8 +545,24 @@
     right: calc(var(--spacing) * -2);
   }
 
+  .-right-4 {
+    right: calc(var(--spacing) * -4);
+  }
+
   .-right-6 {
     right: calc(var(--spacing) * -6);
+  }
+
+  .-right-7 {
+    right: calc(var(--spacing) * -7);
+  }
+
+  .-right-8 {
+    right: calc(var(--spacing) * -8);
+  }
+
+  .-right-10 {
+    right: calc(var(--spacing) * -10);
   }
 
   .right-0 {
@@ -559,6 +579,10 @@
 
   .right-4 {
     right: calc(var(--spacing) * 4);
+  }
+
+  .right-10 {
+    right: calc(var(--spacing) * 10);
   }
 
   .-bottom-1 {
@@ -848,10 +872,6 @@
     height: calc(var(--spacing) * 125);
   }
 
-  .h-\[400px\] {
-    height: 400px;
-  }
-
   .h-full {
     height: 100%;
   }
@@ -922,6 +942,10 @@
 
   .w-32 {
     width: calc(var(--spacing) * 32);
+  }
+
+  .w-40 {
+    width: calc(var(--spacing) * 40);
   }
 
   .w-44 {
@@ -1004,7 +1028,7 @@
     flex: 1;
   }
 
-  .flex-grow, .grow {
+  .grow {
     flex-grow: 1;
   }
 
@@ -1140,6 +1164,12 @@
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
     margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
+  }
+
+  :where(.space-y-5 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 5) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 5) * calc(1 - var(--tw-space-y-reverse)));
   }
 
   :where(.space-y-6 > :not(:last-child)) {
@@ -1895,11 +1925,6 @@
   }
 
   .bg-linear-to-tr {
-    background-image: linear-gradient(var(--tw-gradient-stops));
-  }
-
-  .bg-gradient-to-r {
-    --tw-gradient-position: to right in oklab;
     background-image: linear-gradient(var(--tw-gradient-stops));
   }
 
@@ -3153,6 +3178,18 @@
   }
 
   @media (hover: hover) {
+    .hover\:bg-red-500\/10:hover {
+      background-color: #fb2c361a;
+    }
+
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-red-500\/10:hover {
+        background-color: color-mix(in oklab, var(--color-red-500) 10%, transparent);
+      }
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:bg-red-500\/30:hover {
       background-color: #fb2c364d;
     }
@@ -3612,12 +3649,6 @@
   @media (min-width: 64rem) {
     .lg\:h-150 {
       height: calc(var(--spacing) * 150);
-    }
-  }
-
-  @media (min-width: 64rem) {
-    .lg\:h-\[500px\] {
-      height: 500px;
     }
   }
 

@@ -1,14 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
-import NavbarAdmin from '@/app/components/admin/Navbar';
 import MixedProductChart from '@/app/components/admin/charts/ProductChart';
 import ProgramCharts from '@/app/components/admin/charts/ProgramChart';
 import { FiPlus, FiStar, FiPackage, FiActivity, FiMinus } from 'react-icons/fi';
 import { MdOutlineClose } from 'react-icons/md';
-import FooterAdmin from '@/app/components/admin/Footer';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -32,6 +30,7 @@ export default function Dashboard() {
       trendIcon: FiMinus,
       trendColor: 'text-gray-500',
       icon: <FiPackage />,
+      
     },
     {
       title: 'Total Stock',

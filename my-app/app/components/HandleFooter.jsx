@@ -7,7 +7,7 @@ import Footer from "./Footer";
 
 export default function HandleFooter() {
   const pathname = usePathname();
-  const isAdminRoute = pathname.startsWith("/admin");
+  const isAdminRoute = pathname.startsWith("/admin/dashboard");
 
   return isAdminRoute ? <FooterAdmin /> : <Footer />;
 }
