@@ -22,15 +22,22 @@ export default function RootLayout({ children }) {
 
 
   return (
-    <html lang="en">
-      <body className={`${lexend.variable} font-display`}>
-        <Providers >
-          <Header/>
-          {children}
-          <HandleFooter/>
-        </Providers>
-        <Toaster position="top-right" reverseOrder={false} />
-      </body>
-    </html>
+      <html lang="en">
+        <body className={`${lexend.variable} font-display min-h-screen flex flex-col`}>
+          <Providers>
+            <Header />
+            
+            {/* Main content grows to fill space */}
+            <main className="flex-1">
+              {children}
+            </main>
+
+            <HandleFooter /> {/* Footer will stay at bottom */}
+          </Providers>
+
+          <Toaster position="top-right" reverseOrder={false} />
+        </body>
+      </html>
+
   );
 }

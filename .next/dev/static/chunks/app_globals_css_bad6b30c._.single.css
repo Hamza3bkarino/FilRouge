@@ -1060,6 +1060,10 @@
     cursor: pointer;
   }
 
+  .list-disc {
+    list-style-type: disc;
+  }
+
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -2344,6 +2348,10 @@
     padding-left: calc(var(--spacing) * 4);
   }
 
+  .pl-5 {
+    padding-left: calc(var(--spacing) * 5);
+  }
+
   .pl-10 {
     padding-left: calc(var(--spacing) * 10);
   }
@@ -3136,6 +3144,12 @@
   }
 
   @media (hover: hover) {
+    .hover\:bg-gray-800:hover {
+      background-color: var(--color-gray-800);
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:bg-gray-900\/70:hover {
       background-color: #101828b3;
     }
@@ -3162,6 +3176,12 @@
   @media (hover: hover) {
     .hover\:bg-green-600:hover {
       background-color: var(--color-green-600);
+    }
+  }
+
+  @media (hover: hover) {
+    .hover\:bg-red-400:hover {
+      background-color: var(--color-red-400);
     }
   }
 

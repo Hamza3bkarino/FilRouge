@@ -19,6 +19,7 @@ import {
 import { FiTrash2 } from 'react-icons/fi';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { addOrder } from '../lib/Redux/orderSlice';
 
 const ProgramCheckoutPage = () => {
 
@@ -86,6 +87,11 @@ const ProgramCheckoutPage = () => {
         total: totalPrice,
       });
 
+      dispatch(addOrder({
+        customer: form,
+        cart: cartItems,
+        total: totalPrice,
+      }))
       toast.success('Order placed successfully!');
 
       // Clear carts

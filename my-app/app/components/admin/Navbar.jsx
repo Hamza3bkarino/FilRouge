@@ -101,7 +101,7 @@ export default function NavbarAdmin() {
           >
             Programs
           </NavLink>
-          <NavLink href="/orders" active={pathname === "/orders"}>
+          <NavLink href="/admin/dashboard/orders" active={pathname === "/admin/dashboard/orders"}>
             Orders
           </NavLink>
         </nav>
@@ -231,7 +231,7 @@ export default function NavbarAdmin() {
             <MobileLink href="/admin/dashboard" icon={<FiHome />} label="Dashboard" />
             <MobileLink href="/admin/dashboard/products" icon={<FiBox />} label="Products" />
             <MobileLink href="/admin/dashboard/programs" icon={<FiActivity />} label="Programs" />
-            <MobileLink href="/orders" icon={<FiShoppingCart />} label="Orders" />
+            <MobileLink href="/admin/dashboard/orders" icon={<FiShoppingCart />} label="Orders" />
           </nav>
         </div>
       )}
